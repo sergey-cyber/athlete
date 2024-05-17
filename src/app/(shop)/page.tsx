@@ -3,5 +3,5 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 
 export default function Home() {
-  return <section></section>;
+  return <section>Home</section>;
 }
