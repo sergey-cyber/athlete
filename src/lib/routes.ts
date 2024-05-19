@@ -6,8 +6,14 @@ export const toUsers = () => {
   return "/users";
 };
 
-export const toProduct = () => {
-  return "/products";
+// Merchandises
+
+export const toMerchandises = () => {
+  return "/merchandise";
+};
+
+export const toCreateMerchandise = () => {
+  return "/merchandise/create";
 };
 
 export const toService = () => {

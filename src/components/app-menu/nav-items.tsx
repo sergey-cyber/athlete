@@ -7,7 +7,13 @@ import {
   NavigationMenuLink,
   navigationMenuTriggerStyle
 } from "../ui/navigation-menu";
-import { toAbout, toHome, toProduct, toService, toUsers } from "@/lib/routes";
+import {
+  toAbout,
+  toHome,
+  toMerchandises,
+  toService,
+  toUsers
+} from "@/lib/routes";
 import { HandPlatter, Home, Info, ShoppingBag, Users } from "lucide-react";
 import { usePathname } from "next/navigation";
 
@@ -18,7 +24,7 @@ interface Props {
 const items = [
   { href: toHome(), label: "Главная", icon: <Home /> },
   { href: toUsers(), label: "Пользователи", icon: <Users /> },
-  { href: toProduct(), label: "Товары", icon: <ShoppingBag /> },
+  { href: toMerchandises(), label: "Товары", icon: <ShoppingBag /> },
   { href: toService(), label: "Услуги", icon: <HandPlatter /> },
   { href: toAbout(), label: "О компании", icon: <Info /> }
 ];
