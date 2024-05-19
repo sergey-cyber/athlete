@@ -7,9 +7,10 @@ import {
   NavigationMenuLink,
   navigationMenuTriggerStyle
 } from "../ui/navigation-menu";
-import { toAbout, toProduct, toService, toUsers } from "@/lib/routes";
+import { toAbout, toHome, toProduct, toService, toUsers } from "@/lib/routes";
 
 const items = [
+  { href: toHome(), label: "Главная" },
   { href: toUsers(), label: "Пользователи" },
   { href: toProduct(), label: "Товары" },
   { href: toService(), label: "Услуги" },

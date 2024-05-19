@@ -1,4 +1,5 @@
 import { AppHeader } from "@/components/app-header";
+import { Separator } from "@/components/ui/separator";
 
 export default function ShopLayout({
   children
@@ -6,9 +7,10 @@ export default function ShopLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <main className="container">
+    <main>
       <AppHeader />
-      {children}
+      <Separator />
+      <section className="container">{children}</section>
     </main>
   );
 }

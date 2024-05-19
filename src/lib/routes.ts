@@ -1,3 +1,7 @@
+export const toHome = () => {
+  return "/";
+};
+
 export const toUsers = () => {
   return "/users";
 };
