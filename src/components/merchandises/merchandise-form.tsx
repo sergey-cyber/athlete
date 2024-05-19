@@ -6,6 +6,7 @@ import { MerchandiseType } from "@/service/merchandiseService/types";
 import { Button } from "../ui/button";
 import { createMerchandise } from "@/service/merchandiseService/actions";
 import { useToast } from "../ui/use-toast";
+import { Textarea } from "../ui/textarea";
 
 export function MerchandiseForm() {
   const { toast } = useToast();
@@ -42,8 +43,7 @@ export function MerchandiseForm() {
         value={values.title}
         onChange={(e) => onChange("title", e.currentTarget.value)}
       />
-      <Input
-        type="string"
+      <Textarea
         placeholder="Описание"
         value={values.description}
         onChange={(e) => onChange("description", e.currentTarget.value)}
