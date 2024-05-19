@@ -8,12 +8,7 @@ export function AppHeader() {
     <div className="container flex items-center justify-between py-4">
       <div className="flex gap-x-4">
         <h2 className="text-2xl font-bold">ATHLETE</h2>
-        <AppMenu>
-          <Button variant={"outline"}>
-            <Menu className="mr-2 h-4 w-4" />
-            Меню
-          </Button>
-        </AppMenu>
+        <AppMenu />
       </div>
       <div className="flex gap-x-4">
         <ModeToggle />

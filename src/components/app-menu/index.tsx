@@ -1,4 +1,6 @@
-import { PropsWithChildren } from "react";
+"use client";
+
+import { PropsWithChildren, useEffect, useState } from "react";
 import {
   Sheet,
   SheetContent,
@@ -8,19 +10,26 @@ import {
   SheetTrigger
 } from "../ui/sheet";
 import { NavItems } from "./nav-items";
+import { Button } from "../ui/button";
+import { Menu } from "lucide-react";
 
-interface Props extends PropsWithChildren {}
+export function AppMenu() {
+  const [open, setOpen] = useState(false);
 
-export function AppMenu({ children }: Props) {
   return (
-    <Sheet>
-      <SheetTrigger asChild>{children}</SheetTrigger>
-      <SheetContent side={"left"}>
+    <Sheet open={open}>
+      <SheetTrigger asChild>
+        <Button onClick={() => setOpen(!open)} variant={"outline"}>
+          <Menu className="mr-2 h-4 w-4" />
+          Меню
+        </Button>
+      </SheetTrigger>
+      <SheetContent side={"left"} onClose={() => setOpen(false)}>
         <SheetHeader>
           <SheetTitle>Навигация</SheetTitle>
         </SheetHeader>
         <SheetDescription className="py-2">
-          <NavItems />
+          <NavItems onItemClick={() => setOpen(false)} />
         </SheetDescription>
       </SheetContent>
     </Sheet>
