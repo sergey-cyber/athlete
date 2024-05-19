@@ -1,5 +1,7 @@
 interface RequestParams {
-  path: string;
+  body?: any;
+  method?: "POST" | "GET" | "PUT" | "DELETE";
+  headers?: any;
 }
 
 export class Requestable {
@@ -8,9 +10,15 @@ export class Requestable {
     this.path = process.env.API_URL + path;
   }
 
-  protected async makeRequest<T>({ path }: RequestParams) {
+  protected async makeRequest<T>(path: string, params?: RequestParams) {
     console.info("Start request to " + this.path + path);
-    const response = await fetch(this.path + path);
-    return (await response.json()) as T;
+    const response = await fetch(this.path + path, {
+      ...params,
+      headers: { ...params?.headers, "Content-Type": "application/json" }
+    });
+    if (!response.ok) {
+      throw new Error("Request error.");
+    }
+    return response.json() as T;
   }
 }

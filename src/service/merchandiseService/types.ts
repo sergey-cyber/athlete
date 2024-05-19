@@ -1,6 +1,6 @@
 export type MerchandiseType = {
-  title: String;
-  description: String;
+  title: string;
+  description: string;
   price: number;
   ratio: number;
 };
