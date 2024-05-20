@@ -8,6 +8,7 @@ import {
   CardTitle
 } from "../ui/card";
 import { AddToCartButton } from "./add-to-cart-button";
+import { RussianRuble } from "lucide-react";
 
 interface Props {
   item: MerchandiseType;
@@ -20,8 +21,13 @@ export function MerchendiseListItem({ item }: Props) {
         <CardTitle className="text-center">{item.title}</CardTitle>
       </CardHeader>
       <CardContent>
-        <CardDescription>{item.description}</CardDescription>
-        <p>{item.price}</p>
+        <CardDescription>
+          <p className="line-clamp-5">{item.description}</p>
+        </CardDescription>
+        <div className="pt-2 flex  items-center text-2xl font-semibold">
+          {item.price}
+          <RussianRuble className="pt-1" />
+        </div>
       </CardContent>
       <CardFooter className="justify-center">
         <AddToCartButton item={item} />
