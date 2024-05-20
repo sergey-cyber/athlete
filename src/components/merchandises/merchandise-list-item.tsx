@@ -7,7 +7,7 @@ import {
   CardHeader,
   CardTitle
 } from "../ui/card";
-import { Button } from "../ui/button";
+import { AddToCartButton } from "./add-to-cart-button";
 
 interface Props {
   item: MerchandiseType;
@@ -24,7 +24,7 @@ export function MerchendiseListItem({ item }: Props) {
         <p>{item.price}</p>
       </CardContent>
       <CardFooter className="justify-center">
-        <Button variant={"outline"}>В корзину</Button>
+        <AddToCartButton item={item} />
       </CardFooter>
     </Card>
   );

@@ -2,6 +2,7 @@ import { LogIn, Menu } from "lucide-react";
 import { Button } from "../ui/button";
 import { ModeToggle } from "../mode-toggle";
 import { AppMenu } from "../app-menu";
+import { Cart } from "./cart";
 
 export function AppHeader() {
   return (
@@ -12,6 +13,7 @@ export function AppHeader() {
       </div>
       <div className="flex gap-x-4">
         <ModeToggle />
+        <Cart />
         <Button>
           <LogIn className="mr-2 h-4 w-4" />
           Войти

@@ -1,4 +1,4 @@
-import { MerchendiseListItem } from "@/components/merchandises/merchandise-item";
+import { MerchendiseListItem } from "@/components/merchandises/merchandise-list-item";
 import { Button } from "@/components/ui/button";
 import { toCreateMerchandise } from "@/lib/routes";
 import { merchandiseService } from "@/service/merchandiseService";
