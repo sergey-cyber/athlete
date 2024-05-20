@@ -1,8 +1,9 @@
+import { Empty } from "@/components/empty";
 import { MerchendiseListItem } from "@/components/merchandises/merchandise-list-item";
 import { Button } from "@/components/ui/button";
 import { toCreateMerchandise } from "@/lib/routes";
 import { merchandiseService } from "@/service/merchandiseService";
-import { Inbox, Plus } from "lucide-react";
+import { Plus } from "lucide-react";
 import Link from "next/link";
 
 export default async function MerchandisesPage() {
@@ -26,9 +27,7 @@ export default async function MerchandisesPage() {
           ))}
         </div>
       ) : (
-        <div className="w-full flex flex-col justify-center items-center text-gray-500">
-          <Inbox size={36} /> Пока ничего нет
-        </div>
+        <Empty />
       )}
     </section>
   );

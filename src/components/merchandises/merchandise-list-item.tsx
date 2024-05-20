@@ -21,8 +21,8 @@ export function MerchendiseListItem({ item }: Props) {
         <CardTitle className="text-center">{item.title}</CardTitle>
       </CardHeader>
       <CardContent>
-        <CardDescription>
-          <p className="line-clamp-5">{item.description}</p>
+        <CardDescription className="line-clamp-5">
+          {item.description}
         </CardDescription>
         <div className="pt-2 flex  items-center text-2xl font-semibold">
           {item.price}

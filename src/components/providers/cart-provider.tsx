@@ -11,21 +11,22 @@ import {
 import { useToast } from "../ui/use-toast";
 
 const CART_STORAGE_KEY = "cart";
-const CART_STORAGE_EVENT = "cart-storage-changed";
 
-type ItemType = "merchendise";
+export type CartItemType = "merchendise" | "amenities";
 
-type Item = MerchandiseType;
+export type Cartable = MerchandiseType;
 
-type CartItem = { item: Item; count: number; type: ItemType };
+type CartItem = { item: Cartable; count: number; type: CartItemType };
 
 interface CartContextValue {
-  addItem: (value: { item: Item; type: ItemType }) => void;
+  addItem: (value: { item: Cartable; type: CartItemType }) => void;
   clearCart: () => void;
-  getCartItems: (itemType?: ItemType) => CartItem[];
+  getCartItems: (itemType: CartItemType) => CartItem[];
   getTotalCount: () => number;
-  isInCart: (item?: Item) => boolean;
+  isInCart: (item?: Cartable) => boolean;
   removeItem: (id: number) => void;
+  decrementItem: (id: number) => void;
+  getTotalPrice: (itemType?: CartItemType) => number;
 }
 
 const CartContext = createContext<CartContextValue | null>(null);
@@ -44,7 +45,7 @@ export function CartContextProvider({ children }: PropsWithChildren) {
   const { toast } = useToast();
   const [cart, setCart] = useState<CartItem[] | null>(null);
 
-  const addItem = (value: { item: Item; type: ItemType }) => {
+  const addItem = (value: { item: Cartable; type: CartItemType }) => {
     let newCart: CartItem[];
     if (!cart) {
       newCart = [{ item: value.item, type: value.type, count: 1 }];
@@ -65,7 +66,7 @@ export function CartContextProvider({ children }: PropsWithChildren) {
     setCart(newCart);
   };
 
-  const removeItem = (id: number) => {
+  const decrementItem = (id: number) => {
     if (!cart) {
       return;
     }
@@ -78,6 +79,15 @@ export function CartContextProvider({ children }: PropsWithChildren) {
         return el;
       })
       .filter(({ count }) => count > 0);
+    window.localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(newCart));
+    setCart(newCart);
+  };
+
+  const removeItem = (id: number) => {
+    if (!cart) {
+      return;
+    }
+    const newCart = cart.filter(({ item }) => item.id !== id);
     window.localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(newCart));
     setCart(newCart);
   };
@@ -104,6 +114,9 @@ export function CartContextProvider({ children }: PropsWithChildren) {
     }
   }
 
+  const getCartItems = (type?: CartItemType) =>
+    cart?.filter((item) => (type ? item.type === type : true)) || [];
+
   useEffect(() => {
     setCart(getStoredCart());
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -113,13 +126,18 @@ export function CartContextProvider({ children }: PropsWithChildren) {
     <CartContext.Provider
       value={{
         clearCart,
-        getCartItems: (type?: ItemType) =>
-          cart?.filter((item) => (type ? item.type === type : true)) || [],
+        getCartItems,
+        getTotalPrice: (type?: CartItemType) =>
+          getCartItems(type).reduce(
+            (acc, { item, count }) => item.price * count + acc,
+            0
+          ),
         addItem,
         getTotalCount: () =>
           cart?.reduce((acc, item) => item.count + acc, 0) || 0,
-        isInCart: (item?: Item) =>
+        isInCart: (item?: Cartable) =>
           !!cart?.some((cartItem) => cartItem.item.id === item?.id),
+        decrementItem,
         removeItem
       }}
     >

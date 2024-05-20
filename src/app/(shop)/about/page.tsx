@@ -1,8 +1,9 @@
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import { toMerchandises } from "@/lib/routes";
 import { ArrowRight, ShoppingBag } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function AboutPage() {
   return (
@@ -40,8 +41,10 @@ export default function AboutPage() {
             его получения - чтобы они получили максимальную пользу от своей
             покупки и остались довольными своим опытом работы с нами.
           </p>
-          <Button>
-            К каталогу товаров <ArrowRight className="ml-2" />
+          <Button asChild>
+            <Link href={toMerchandises()}>
+              К каталогу товаров <ArrowRight className="ml-2" />
+            </Link>
           </Button>
         </div>
         <Image

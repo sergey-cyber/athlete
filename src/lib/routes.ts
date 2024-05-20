@@ -6,6 +6,14 @@ export const toUsers = () => {
   return "/users";
 };
 
+export const toService = () => {
+  return "/service";
+};
+
+export const toAbout = () => {
+  return "/about";
+};
+
 // Merchandises
 
 export const toMerchandises = () => {
@@ -16,10 +24,8 @@ export const toCreateMerchandise = () => {
   return "/merchandise/create";
 };
 
-export const toService = () => {
-  return "/service";
-};
+// Sopping cart
 
-export const toAbout = () => {
-  return "/about";
+export const toShoppingCart = () => {
+  return "/shopping-cart";
 };
