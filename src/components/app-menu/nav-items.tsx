@@ -11,7 +11,7 @@ import {
   toAbout,
   toHome,
   toMerchandises,
-  toService,
+  toAmenitiesList,
   toUsers
 } from "@/lib/routes";
 import { HandPlatter, Home, Info, ShoppingBag, Users } from "lucide-react";
@@ -25,7 +25,7 @@ const items = [
   { href: toHome(), label: "Главная", icon: <Home /> },
   { href: toUsers(), label: "Пользователи", icon: <Users /> },
   { href: toMerchandises(), label: "Товары", icon: <ShoppingBag /> },
-  { href: toService(), label: "Услуги", icon: <HandPlatter /> },
+  { href: toAmenitiesList(), label: "Услуги", icon: <HandPlatter /> },
   { href: toAbout(), label: "О компании", icon: <Info /> }
 ];
 

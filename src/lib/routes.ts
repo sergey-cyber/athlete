@@ -6,10 +6,6 @@ export const toUsers = () => {
   return "/users";
 };
 
-export const toService = () => {
-  return "/service";
-};
-
 export const toAbout = () => {
   return "/about";
 };

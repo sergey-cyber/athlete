@@ -23,7 +23,7 @@ interface CartContextValue {
   clearCart: () => void;
   getCartItems: (itemType: CartItemType) => CartItem[];
   getTotalCount: () => number;
-  isInCart: (item?: Cartable) => boolean;
+  isInCart: (itemId: number) => boolean;
   removeItem: (id: number) => void;
   decrementItem: (id: number) => void;
   getTotalPrice: (itemType?: CartItemType) => number;
@@ -135,8 +135,8 @@ export function CartContextProvider({ children }: PropsWithChildren) {
         addItem,
         getTotalCount: () =>
           cart?.reduce((acc, item) => item.count + acc, 0) || 0,
-        isInCart: (item?: Cartable) =>
-          !!cart?.some((cartItem) => cartItem.item.id === item?.id),
+        isInCart: (itemId: number) =>
+          !!cart?.some((cartItem) => cartItem.item.id === itemId),
         decrementItem,
         removeItem
       }}

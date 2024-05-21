@@ -1,28 +1,28 @@
 "use client";
 
 import { useState } from "react";
-import { MerchandiseType } from "@/service/merchandise/types";
 import { Button } from "../ui/button";
-import { createMerchandise } from "@/service/merchandise/actions";
 import { useToast } from "../ui/use-toast";
 import { ProductForm } from "../product-form";
+import { AmenitiesType } from "@/service/amenities/types";
+import { createAmenities } from "@/service/amenities/actions";
 
-export function MerchandiseForm() {
+export function AmenitiesForm() {
   const { toast } = useToast();
-  const [values, setValues] = useState<Partial<MerchandiseType>>({});
+  const [values, setValues] = useState<Partial<AmenitiesType>>({});
   const [pending, setPending] = useState(false);
 
   const onSubmit = async () => {
     setPending(true);
     try {
-      await createMerchandise(values);
+      await createAmenities(values);
       toast({
-        title: "Товар создан успешно."
+        title: "Услуга создана успешно."
       });
     } catch (err) {
       console.error(err);
       toast({
-        title: "Ошибка при создании товара.",
+        title: "Ошибка при создании услуги.",
         variant: "destructive"
       });
     } finally {
