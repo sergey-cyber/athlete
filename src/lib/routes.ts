@@ -10,6 +10,14 @@ export const toAbout = () => {
   return "/about";
 };
 
+export const toSignIn = () => {
+  return "/sign-in";
+};
+
+export const toSignUp = () => {
+  return "/sign-up";
+};
+
 // Merchandises
 
 export const toMerchandises = () => {

@@ -3,6 +3,8 @@ import { Button } from "../ui/button";
 import { ModeToggle } from "../mode-toggle";
 import { AppMenu } from "../app-menu";
 import { Cart } from "./cart";
+import Link from "next/link";
+import { toSignIn } from "@/lib/routes";
 
 export function AppHeader() {
   return (
@@ -14,9 +16,11 @@ export function AppHeader() {
       <div className="flex gap-x-4">
         <ModeToggle />
         <Cart />
-        <Button>
-          <LogIn className="mr-2 h-4 w-4" />
-          Войти
+        <Button asChild>
+          <Link href={toSignIn()}>
+            <LogIn className="mr-2 h-4 w-4" />
+            Войти
+          </Link>
         </Button>
       </div>
     </div>
