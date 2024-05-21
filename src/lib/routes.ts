@@ -41,3 +41,9 @@ export const toShoppingCart = () => {
 export const toOrders = () => {
   return "/order";
 };
+
+// Status
+
+export const toStatuses = () => {
+  return "/status";
+};

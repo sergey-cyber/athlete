@@ -1,5 +1,6 @@
 import { AmenitiesType } from "../amenities/types";
 import { MerchandiseType } from "../merchandise/types";
+import { StatusType } from "../status/types";
 
 export interface OrderType {
   id: number;
@@ -8,7 +9,7 @@ export interface OrderType {
 
   priority: number;
 
-  status: string;
+  status: StatusType;
 
   description: string;
 

@@ -13,9 +13,11 @@ import {
   toMerchandises,
   toAmenitiesList,
   toUsers,
-  toOrders
+  toOrders,
+  toStatuses
 } from "@/lib/routes";
 import {
+  FileBarChart2,
   Files,
   HandPlatter,
   Home,
@@ -35,6 +37,7 @@ const items = [
   { href: toMerchandises(), label: "Товары", icon: <ShoppingBag /> },
   { href: toAmenitiesList(), label: "Услуги", icon: <HandPlatter /> },
   { href: toOrders(), label: "Заявки", icon: <Files /> },
+  { href: toStatuses(), label: "Статусы", icon: <FileBarChart2 /> },
   { href: toAbout(), label: "О компании", icon: <Info /> }
 ];
 
