@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "../ui/button";
-import { MerchandiseType } from "@/service/merchandiseService/types";
+import { MerchandiseType } from "@/service/merchandise/types";
 import { useCartStorage } from "../providers/cart-provider";
 
 interface Props {

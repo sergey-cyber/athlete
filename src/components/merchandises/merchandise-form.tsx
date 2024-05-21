@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import { Input } from "../ui/input";
-import { MerchandiseType } from "@/service/merchandiseService/types";
+import { MerchandiseType } from "@/service/merchandise/types";
 import { Button } from "../ui/button";
-import { createMerchandise } from "@/service/merchandiseService/actions";
+import { createMerchandise } from "@/service/merchandise/actions";
 import { useToast } from "../ui/use-toast";
 import { Textarea } from "../ui/textarea";
 

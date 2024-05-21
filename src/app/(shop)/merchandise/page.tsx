@@ -2,7 +2,7 @@ import { Empty } from "@/components/empty";
 import { MerchendiseListItem } from "@/components/merchandises/merchandise-list-item";
 import { Button } from "@/components/ui/button";
 import { toCreateMerchandise } from "@/lib/routes";
-import { merchandiseService } from "@/service/merchandiseService";
+import { merchandiseService } from "@/service/merchandise";
 import { Plus } from "lucide-react";
 import Link from "next/link";
 

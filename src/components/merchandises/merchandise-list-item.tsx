@@ -1,4 +1,4 @@
-import { MerchandiseType } from "@/service/merchandiseService/types";
+import { MerchandiseType } from "@/service/merchandise/types";
 import {
   Card,
   CardContent,

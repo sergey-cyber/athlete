@@ -1,6 +1,6 @@
 "use client";
 
-import { MerchandiseType } from "@/service/merchandiseService/types";
+import { MerchandiseType } from "@/service/merchandise/types";
 import {
   PropsWithChildren,
   createContext,
