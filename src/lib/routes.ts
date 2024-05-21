@@ -21,7 +21,17 @@ export const toMerchandises = () => {
 };
 
 export const toCreateMerchandise = () => {
-  return "/merchandise/create";
+  return toMerchandises() + "/create";
+};
+
+// Amenities
+
+export const toAmenitiesList = () => {
+  return "/amenities";
+};
+
+export const toCreateAmenities = () => {
+  return toAmenitiesList() + "/create";
 };
 
 // Sopping cart

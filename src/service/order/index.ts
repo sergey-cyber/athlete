@@ -18,4 +18,4 @@ class OrderService extends Requestable {
   }
 }
 
-export const merchandiseService = new OrderService("/order");
+export const orderService = new OrderService("/order");

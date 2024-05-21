@@ -1,4 +1,4 @@
-import { AmenitiesType } from "../amenities";
+import { AmenitiesType } from "../amenities/types";
 import { MerchandiseType } from "../merchandise/types";
 
 export interface OrderType {
