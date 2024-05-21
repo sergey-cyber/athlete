@@ -35,3 +35,9 @@ export const toCreateAmenities = () => {
 export const toShoppingCart = () => {
   return "/shopping-cart";
 };
+
+// Order
+
+export const toOrders = () => {
+  return "/order";
+};

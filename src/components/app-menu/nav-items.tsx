@@ -12,9 +12,17 @@ import {
   toHome,
   toMerchandises,
   toAmenitiesList,
-  toUsers
+  toUsers,
+  toOrders
 } from "@/lib/routes";
-import { HandPlatter, Home, Info, ShoppingBag, Users } from "lucide-react";
+import {
+  Files,
+  HandPlatter,
+  Home,
+  Info,
+  ShoppingBag,
+  Users
+} from "lucide-react";
 import { usePathname } from "next/navigation";
 
 interface Props {
@@ -26,6 +34,7 @@ const items = [
   { href: toUsers(), label: "Пользователи", icon: <Users /> },
   { href: toMerchandises(), label: "Товары", icon: <ShoppingBag /> },
   { href: toAmenitiesList(), label: "Услуги", icon: <HandPlatter /> },
+  { href: toOrders(), label: "Заявки", icon: <Files /> },
   { href: toAbout(), label: "О компании", icon: <Info /> }
 ];
 
