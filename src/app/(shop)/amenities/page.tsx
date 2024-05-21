@@ -16,7 +16,7 @@ export default async function AmenitiesListPage() {
         <Button asChild>
           <Link href={toCreateAmenities()}>
             <Plus className="mr-2" />
-            Создать товар
+            Создать услугу
           </Link>
         </Button>
       </div>
