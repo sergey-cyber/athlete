@@ -24,7 +24,9 @@ export function ProductListItem({
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-center text-xl">{title}</CardTitle>
+        <CardTitle className="text-center text-xl line-clamp-2">
+          {title}
+        </CardTitle>
       </CardHeader>
       <CardContent>
         <CardDescription className="line-clamp-3 min-h-16">

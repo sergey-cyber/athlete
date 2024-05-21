@@ -14,8 +14,11 @@ interface Props {
 
 export function AddProductToCartButton({ product, productType }: Props) {
   const { addItem, removeItem, isInCart } = useCartStorage();
-  return isInCart(product.id) ? (
-    <Button onClick={() => removeItem(product.id)} variant={"outline"}>
+  return isInCart(product.id, productType) ? (
+    <Button
+      onClick={() => removeItem(product.id, productType)}
+      variant={"outline"}
+    >
       Удалить из корзины
     </Button>
   ) : (

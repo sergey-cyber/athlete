@@ -23,9 +23,9 @@ interface CartContextValue {
   clearCart: () => void;
   getCartItems: (itemType: CartItemType) => CartItem[];
   getTotalCount: () => number;
-  isInCart: (itemId: number) => boolean;
-  removeItem: (id: number) => void;
-  decrementItem: (id: number) => void;
+  isInCart: (itemId: number, type: CartItemType) => boolean;
+  removeItem: (id: number, type: CartItemType) => void;
+  decrementItem: (id: number, type: CartItemType) => void;
   getTotalPrice: (itemType?: CartItemType) => number;
 }
 
@@ -50,10 +50,12 @@ export function CartContextProvider({ children }: PropsWithChildren) {
     if (!cart) {
       newCart = [{ item: value.item, type: value.type, count: 1 }];
     } else {
-      const exists = cart.find(({ item }) => item.id === value.item.id)?.item;
-      if (exists) {
+      const isExists = !!cart.find(
+        ({ item, type }) => item.id === value.item.id && value.type === type
+      );
+      if (isExists) {
         newCart = cart.map((el) => {
-          if (el.item.id === exists.id) {
+          if (el.item.id === value.item.id && el.type === value.type) {
             return { ...el, count: el.count + 1 };
           }
           return el;
@@ -66,14 +68,13 @@ export function CartContextProvider({ children }: PropsWithChildren) {
     setCart(newCart);
   };
 
-  const decrementItem = (id: number) => {
+  const decrementItem = (id: number, type: CartItemType) => {
     if (!cart) {
       return;
     }
-    let newCart: CartItem[];
-    newCart = cart
+    const newCart = cart
       .map((el) => {
-        if (el.item.id === id) {
+        if (el.item.id === id && type === el.type) {
           return { ...el, count: el.count - 1 };
         }
         return el;
@@ -83,11 +84,13 @@ export function CartContextProvider({ children }: PropsWithChildren) {
     setCart(newCart);
   };
 
-  const removeItem = (id: number) => {
+  const removeItem = (id: number, type: CartItemType) => {
     if (!cart) {
       return;
     }
-    const newCart = cart.filter(({ item }) => item.id !== id);
+    const newCart = cart.filter(
+      (el) => !(el.item.id === id && el.type === type)
+    );
     window.localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(newCart));
     setCart(newCart);
   };
@@ -135,8 +138,10 @@ export function CartContextProvider({ children }: PropsWithChildren) {
         addItem,
         getTotalCount: () =>
           cart?.reduce((acc, item) => item.count + acc, 0) || 0,
-        isInCart: (itemId: number) =>
-          !!cart?.some((cartItem) => cartItem.item.id === itemId),
+        isInCart: (itemId: number, type: CartItemType) =>
+          !!cart?.some(
+            (cartItem) => cartItem.item.id === itemId && type === cartItem.type
+          ),
         decrementItem,
         removeItem
       }}

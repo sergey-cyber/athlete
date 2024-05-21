@@ -38,7 +38,7 @@ export function CartProductSection({ type, title }: Props) {
                 </div>
                 <div className="flex justify-center items-center gap-x-2">
                   <Button
-                    onClick={() => decrementItem(item.id)}
+                    onClick={() => decrementItem(item.id, type)}
                     size={"mini"}
                     variant={"outline"}
                   >
