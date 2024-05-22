@@ -2,8 +2,8 @@
 
 import { AmenitiesType } from "@/service/amenities/types";
 import { MerchandiseType } from "@/service/merchandise/types";
-import { CartItemType, useCartStorage } from "./providers/cart-provider";
-import { Button } from "./ui/button";
+import { CartItemType, useCartStorage } from "../providers/cart-provider";
+import { Button } from "../ui/button";
 
 type Product = MerchandiseType | AmenitiesType;
 

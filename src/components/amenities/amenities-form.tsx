@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Button } from "../ui/button";
 import { useToast } from "../ui/use-toast";
-import { ProductForm } from "../product-form";
+import { ProductForm } from "../product/product-form";
 import { AmenitiesType } from "@/service/amenities/types";
 import { createAmenities } from "@/service/amenities/actions";
 

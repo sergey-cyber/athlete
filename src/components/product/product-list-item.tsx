@@ -5,7 +5,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle
-} from "./ui/card";
+} from "../ui/card";
 import { RussianRuble } from "lucide-react";
 import { PropsWithChildren } from "react";
 
@@ -22,7 +22,7 @@ export function ProductListItem({
   children
 }: Props) {
   return (
-    <Card>
+    <Card className="relative">
       <CardHeader>
         <CardTitle className="text-center text-xl line-clamp-2">
           {title}

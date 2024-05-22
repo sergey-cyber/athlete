@@ -16,3 +16,12 @@ export async function createMerchandise(payload: Partial<MerchandiseType>) {
     throw err;
   }
 }
+
+export async function removeMerchandise(id: number) {
+  try {
+    await merchandiseService.remove(id);
+    revalidatePath(toMerchandises());
+  } catch (err) {
+    throw err;
+  }
+}

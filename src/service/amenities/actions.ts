@@ -16,3 +16,12 @@ export async function createAmenities(payload: Partial<AmenitiesType>) {
     throw err;
   }
 }
+
+export async function removeAmenities(id: number) {
+  try {
+    await amenitiesService.remove(id);
+    revalidatePath(toAmenitiesList());
+  } catch (err) {
+    throw err;
+  }
+}

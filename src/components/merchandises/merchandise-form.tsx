@@ -5,7 +5,7 @@ import { MerchandiseType } from "@/service/merchandise/types";
 import { Button } from "../ui/button";
 import { createMerchandise } from "@/service/merchandise/actions";
 import { useToast } from "../ui/use-toast";
-import { ProductForm } from "../product-form";
+import { ProductForm } from "../product/product-form";
 
 export function MerchandiseForm() {
   const { toast } = useToast();

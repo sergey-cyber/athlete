@@ -28,6 +28,10 @@ export const toCreateMerchandise = () => {
   return toMerchandises() + "/create";
 };
 
+export const toEditMerchandise = () => {
+  return toMerchandises() + "/edit";
+};
+
 // Amenities
 
 export const toAmenitiesList = () => {
@@ -36,6 +40,10 @@ export const toAmenitiesList = () => {
 
 export const toCreateAmenities = () => {
   return toAmenitiesList() + "/create";
+};
+
+export const toEditAmenities = () => {
+  return toAmenitiesList() + "/edit";
 };
 
 // Sopping cart

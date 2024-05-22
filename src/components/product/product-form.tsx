@@ -1,8 +1,8 @@
 "use client";
 
 import { PropsWithChildren } from "react";
-import { Input } from "./ui/input";
-import { Textarea } from "./ui/textarea";
+import { Input } from "../ui/input";
+import { Textarea } from "../ui/textarea";
 
 interface Props extends PropsWithChildren {
   values: {
