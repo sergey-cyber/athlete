@@ -14,3 +14,12 @@ export async function createStatus(payload: Partial<StatusType>) {
     throw e;
   }
 }
+
+export async function removeStatus(id: number) {
+  try {
+    await statusService.remove(id);
+    revalidatePath(toStatuses());
+  } catch (err) {
+    throw err;
+  }
+}

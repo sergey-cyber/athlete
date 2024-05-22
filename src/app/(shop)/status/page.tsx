@@ -1,5 +1,6 @@
 import { Empty } from "@/components/empty";
 import { CreateStatusButton } from "@/components/status/create-status-button";
+import { DeleteStatusButton } from "@/components/status/delete-status-button";
 import {
   Table,
   TableBody,
@@ -34,7 +35,9 @@ export default async function StatusesPage() {
               <TableRow key={status.id}>
                 <TableCell className="font-medium">{status.id}</TableCell>
                 <TableCell>{status.status}</TableCell>
-                <TableCell></TableCell>
+                <TableCell className="text-right">
+                  <DeleteStatusButton id={status.id} />
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
