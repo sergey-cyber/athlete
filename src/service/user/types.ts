@@ -4,7 +4,7 @@ export type UserType = {
   secondName: string;
   middleName: string;
   email: string;
-  phone: string;
+  phone: number;
   address: string;
   userType: string;
   locality: string;

@@ -24,7 +24,7 @@ const formSchema = z.object({
   secondName: z.string(),
   middleName: z.string(),
   email: z.string(),
-  phone: z.string(),
+  phone: z.coerce.number(),
   address: z.string()
   /* password: z.string().min(6, {
       message: "Минимум 6 символов"
@@ -52,7 +52,7 @@ export function SignUpForm() {
       secondName: "",
       middleName: "",
       email: "",
-      phone: "",
+      phone: 0,
       address: ""
       // password: "",
       // confirmPassword: ""
@@ -71,6 +71,8 @@ export function SignUpForm() {
         title: "Ошибка при регистрации пользователя.",
         variant: "destructive"
       });
+    } finally {
+      setPending(false);
     }
   }
 
@@ -136,7 +138,7 @@ export function SignUpForm() {
             <FormItem>
               <FormLabel>Телефон</FormLabel>
               <FormControl>
-                <Input placeholder="" {...field} />
+                <Input type="number" placeholder="" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
