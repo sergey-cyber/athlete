@@ -8,6 +8,7 @@ import { redirect } from "next/navigation";
 import { removeMerchandise } from "@/service/merchandise/actions";
 import { toEditMerchandise } from "@/lib/routes";
 import { MerchandiseType } from "@/service/merchandise/types";
+import { useCartStorage } from "../providers/cart-provider";
 
 interface Props {
   merchandise: MerchandiseType;
@@ -15,6 +16,7 @@ interface Props {
 
 export function MerchandiseItemMenu({ merchandise }: Props) {
   const { toast } = useToast();
+  const { removeItem } = useCartStorage();
   const [openConfirm, setOpenConfirm] = useState(false);
   const [pending, setPending] = useState(false);
 
@@ -22,6 +24,7 @@ export function MerchandiseItemMenu({ merchandise }: Props) {
     setPending(true);
     try {
       await removeMerchandise(merchandise.id);
+      removeItem(merchandise.id, "merchendise");
       toast({
         title: `Товар '${merchandise.title}' удален успешно.`
       });

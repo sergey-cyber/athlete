@@ -8,12 +8,14 @@ import { Confirm } from "../confirm";
 import { redirect } from "next/navigation";
 import { toEditAmenities } from "@/lib/routes";
 import { AmenitiesType } from "@/service/amenities/types";
+import { useCartStorage } from "../providers/cart-provider";
 
 interface Props {
   amenities: AmenitiesType;
 }
 
 export function AmenitiesItemMenu({ amenities }: Props) {
+  const { removeItem } = useCartStorage();
   const { toast } = useToast();
   const [openConfirm, setOpenConfirm] = useState(false);
   const [pending, setPending] = useState(false);
@@ -22,6 +24,7 @@ export function AmenitiesItemMenu({ amenities }: Props) {
     setPending(true);
     try {
       await removeAmenities(amenities.id);
+      removeItem(amenities.id, "amenities");
       toast({
         title: `Услуга '${amenities.title}' удалена успешно.`
       });
