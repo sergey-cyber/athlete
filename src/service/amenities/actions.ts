@@ -17,6 +17,17 @@ export async function createAmenities(payload: Partial<AmenitiesType>) {
   }
 }
 
+export async function editAmenities(payload: Partial<AmenitiesType>) {
+  try {
+    await amenitiesService.edit(payload);
+    const redirectPath = toAmenitiesList();
+    revalidatePath(redirectPath);
+    redirect(redirectPath);
+  } catch (err) {
+    throw err;
+  }
+}
+
 export async function removeAmenities(id: number) {
   try {
     await amenitiesService.remove(id);

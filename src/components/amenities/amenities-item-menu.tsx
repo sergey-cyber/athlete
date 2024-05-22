@@ -5,7 +5,7 @@ import { useToast } from "../ui/use-toast";
 import { removeAmenities } from "@/service/amenities/actions";
 import { ProductItemMenu } from "../product/product-item-menu";
 import { Confirm } from "../confirm";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { toEditAmenities } from "@/lib/routes";
 import { AmenitiesType } from "@/service/amenities/types";
 import { useCartStorage } from "../providers/cart-provider";
@@ -15,6 +15,7 @@ interface Props {
 }
 
 export function AmenitiesItemMenu({ amenities }: Props) {
+  const router = useRouter();
   const { removeItem } = useCartStorage();
   const { toast } = useToast();
   const [openConfirm, setOpenConfirm] = useState(false);
@@ -49,7 +50,7 @@ export function AmenitiesItemMenu({ amenities }: Props) {
         onConfirm={onDelete}
       />
       <ProductItemMenu
-        onEdit={() => redirect(toEditAmenities())}
+        onEdit={() => router.push(toEditAmenities(amenities.id))}
         onDelete={() => setOpenConfirm(true)}
       />
     </>

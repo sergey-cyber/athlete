@@ -17,7 +17,7 @@ export default async function EditMerchandisePage({ params }: Props) {
 
   return (
     <section className="py-6 w-full flex flex-col justify-center items-center">
-      <h1 className="text-2xl font-bold">Создание товара</h1>
+      <h1 className="text-2xl font-bold">Редактирование товара</h1>
       <MerchandiseEditForm merchandise={merchandiseToEdit} />
     </section>
   );

@@ -14,6 +14,13 @@ class AmenitiesService extends Requestable {
     });
   }
 
+  public async edit(amenities: Partial<AmenitiesType>) {
+    return this.makeRequest<AmenitiesType>("/edit", {
+      method: "PUT",
+      body: JSON.stringify(amenities)
+    });
+  }
+
   public async remove(id: number) {
     return await fetch(`${this.path}/delete?id=${id}`, {
       method: "DELETE"

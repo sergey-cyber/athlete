@@ -7,7 +7,7 @@ import { ProductForm } from "../product/product-form";
 import { AmenitiesType } from "@/service/amenities/types";
 import { createAmenities } from "@/service/amenities/actions";
 
-export function AmenitiesForm() {
+export function AmenitiesCreateForm() {
   const { toast } = useToast();
   const [values, setValues] = useState<Partial<AmenitiesType>>({});
   const [pending, setPending] = useState(false);
