@@ -20,7 +20,6 @@ export function MerchandiseCreateForm() {
         title: "Товар создан успешно."
       });
     } catch (err) {
-      console.error(err);
       toast({
         title: "Ошибка при создании товара.",
         variant: "destructive"
