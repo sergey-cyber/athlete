@@ -2,16 +2,15 @@
 
 import { Plus } from "lucide-react";
 import { Button } from "../ui/button";
-import { StatusForm } from "./status-form";
+import { StatusForm, StatusFormValues } from "./status-form";
 import { useState } from "react";
-import { StatusType } from "@/service/status/types";
 import { createStatus } from "@/service/status/actions";
 import { useToast } from "../ui/use-toast";
 
 export function CreateStatusButton() {
   const { toast } = useToast();
   const [openForm, setOpenForm] = useState(false);
-  const [values, setValues] = useState<Partial<StatusType>>({});
+  const [values, setValues] = useState<StatusFormValues>({ status: "" });
   const [pending, setPending] = useState(false);
 
   const onSubmit = async () => {
@@ -34,6 +33,7 @@ export function CreateStatusButton() {
 
   return (
     <StatusForm
+      values={values}
       loading={pending}
       onChange={(field, value) => setValues({ ...values, [field]: value })}
       open={openForm}

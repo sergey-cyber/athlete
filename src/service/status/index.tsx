@@ -6,10 +6,17 @@ class StatusService extends Requestable {
     super(path);
   }
 
-  public async create(amenities: Partial<StatusType>) {
+  public async create(status: Partial<StatusType>) {
     return this.makeRequest<StatusType>("/save", {
       method: "POST",
-      body: JSON.stringify(amenities)
+      body: JSON.stringify(status)
+    });
+  }
+
+  public async edit(status: Partial<StatusType>) {
+    return this.makeRequest<StatusType>("/edit", {
+      method: "PUT",
+      body: JSON.stringify(status)
     });
   }
 

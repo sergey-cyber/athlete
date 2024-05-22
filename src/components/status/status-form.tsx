@@ -12,20 +12,23 @@ import {
 } from "../ui/dialog";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
+import { StatusType } from "@/service/status/types";
+
+export type StatusFormValues = Omit<StatusType, "id">;
 
 interface Props extends PropsWithChildren {
   title: string;
-  value?: string;
   open: boolean;
   onClose?: () => void;
   onSubmit?: () => void;
   onChange?: (field: string, value: any) => void;
   loading?: boolean;
+  values: StatusFormValues;
 }
 
 export function StatusForm({
   title,
-  value,
+  values,
   children,
   open,
   onClose,
@@ -43,7 +46,7 @@ export function StatusForm({
         </DialogHeader>
         <Input
           onChange={(e) => onChange?.("status", e.currentTarget.value)}
-          value={value}
+          value={values.status}
           id="status"
           className=""
           placeholder="Статус..."

@@ -23,3 +23,12 @@ export async function removeStatus(id: number) {
     throw err;
   }
 }
+
+export async function editStatus(payload: StatusType) {
+  try {
+    await statusService.edit(payload);
+    revalidatePath(toStatuses());
+  } catch (err) {
+    throw err;
+  }
+}

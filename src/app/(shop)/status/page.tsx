@@ -1,6 +1,7 @@
 import { Empty } from "@/components/empty";
 import { CreateStatusButton } from "@/components/status/create-status-button";
 import { DeleteStatusButton } from "@/components/status/delete-status-button";
+import { EditStatusButton } from "@/components/status/edit-status-button";
 import {
   Table,
   TableBody,
@@ -35,7 +36,8 @@ export default async function StatusesPage() {
               <TableRow key={status.id}>
                 <TableCell className="font-medium">{status.id}</TableCell>
                 <TableCell>{status.status}</TableCell>
-                <TableCell className="text-right">
+                <TableCell className="flex gap-x-2 justify-end">
+                  <EditStatusButton status={status} />
                   <DeleteStatusButton id={status.id} />
                 </TableCell>
               </TableRow>
