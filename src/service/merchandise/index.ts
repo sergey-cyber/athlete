@@ -13,6 +13,13 @@ class MerchandiseService extends Requestable {
     });
   }
 
+  public async edit(merchandise: Partial<MerchandiseType>) {
+    return this.makeRequest<MerchandiseType>("/edit", {
+      method: "PUT",
+      body: JSON.stringify(merchandise)
+    });
+  }
+
   public async remove(id: number) {
     return await fetch(`${this.path}/delete?id=${id}`, {
       method: "DELETE"

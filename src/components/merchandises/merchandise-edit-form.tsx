@@ -3,26 +3,29 @@
 import { useState } from "react";
 import { MerchandiseType } from "@/service/merchandise/types";
 import { Button } from "../ui/button";
-import { createMerchandise } from "@/service/merchandise/actions";
+import { editMerchandise } from "@/service/merchandise/actions";
 import { useToast } from "../ui/use-toast";
 import { ProductForm } from "../product/product-form";
 
-export function MerchandiseForm() {
+interface Props {
+  merchandise: MerchandiseType;
+}
+
+export function MerchandiseEditForm({ merchandise }: Props) {
   const { toast } = useToast();
-  const [values, setValues] = useState<Partial<MerchandiseType>>({});
+  const [values, setValues] = useState<Partial<MerchandiseType>>(merchandise);
   const [pending, setPending] = useState(false);
 
   const onSubmit = async () => {
     setPending(true);
     try {
-      await createMerchandise(values);
+      await editMerchandise(values);
       toast({
-        title: "Товар создан успешно."
+        title: "Товар изменен успешно."
       });
     } catch (err) {
-      console.error(err);
       toast({
-        title: "Ошибка при создании товара.",
+        title: "Ошибка при изменении товара.",
         variant: "destructive"
       });
     } finally {
@@ -37,7 +40,7 @@ export function MerchandiseForm() {
   return (
     <ProductForm values={values} onChange={onChange}>
       <Button disabled={pending} onClick={onSubmit}>
-        Создать
+        Сохранить
       </Button>
     </ProductForm>
   );

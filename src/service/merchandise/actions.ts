@@ -17,6 +17,17 @@ export async function createMerchandise(payload: Partial<MerchandiseType>) {
   }
 }
 
+export async function editMerchandise(payload: Partial<MerchandiseType>) {
+  try {
+    await merchandiseService.edit(payload);
+    const redirectPath = toMerchandises();
+    revalidatePath(redirectPath);
+    redirect(redirectPath);
+  } catch (err) {
+    throw err;
+  }
+}
+
 export async function removeMerchandise(id: number) {
   try {
     await merchandiseService.remove(id);

@@ -28,8 +28,8 @@ export const toCreateMerchandise = () => {
   return toMerchandises() + "/create";
 };
 
-export const toEditMerchandise = () => {
-  return toMerchandises() + "/edit";
+export const toEditMerchandise = (id: number) => {
+  return toMerchandises() + `/${id}/edit`;
 };
 
 // Amenities
@@ -42,8 +42,8 @@ export const toCreateAmenities = () => {
   return toAmenitiesList() + "/create";
 };
 
-export const toEditAmenities = () => {
-  return toAmenitiesList() + "/edit";
+export const toEditAmenities = (id: number) => {
+  return toAmenitiesList() + `/${id}/edit`;
 };
 
 // Sopping cart

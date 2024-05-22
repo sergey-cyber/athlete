@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useToast } from "../ui/use-toast";
 import { ProductItemMenu } from "../product/product-item-menu";
 import { Confirm } from "../confirm";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { removeMerchandise } from "@/service/merchandise/actions";
 import { toEditMerchandise } from "@/lib/routes";
 import { MerchandiseType } from "@/service/merchandise/types";
@@ -15,6 +15,7 @@ interface Props {
 }
 
 export function MerchandiseItemMenu({ merchandise }: Props) {
+  const router = useRouter();
   const { toast } = useToast();
   const { removeItem } = useCartStorage();
   const [openConfirm, setOpenConfirm] = useState(false);
@@ -49,7 +50,7 @@ export function MerchandiseItemMenu({ merchandise }: Props) {
         onConfirm={onDelete}
       />
       <ProductItemMenu
-        onEdit={() => redirect(toEditMerchandise())}
+        onEdit={() => router.push(toEditMerchandise(merchandise.id))}
         onDelete={() => setOpenConfirm(true)}
       />
     </>
