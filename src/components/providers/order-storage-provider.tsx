@@ -27,6 +27,7 @@ interface OrderStorage {
   addAmenities: (value: AmenitiesType) => void;
   deleteAmenities: (id: number) => void;
   clear: () => void;
+  getOrder: () => StoredOrder;
 }
 
 const ORDER_STORAGE_KEY = "order";
@@ -101,7 +102,8 @@ export function OrderContextProvider({ children }: PropsWithChildren) {
         clear: () => {
           window.localStorage.removeItem(ORDER_STORAGE_KEY);
           setOrder({});
-        }
+        },
+        getOrder: () => order
       }}
     >
       {children}

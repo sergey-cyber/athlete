@@ -4,4 +4,5 @@ export type MerchandiseType = {
   description: string;
   price: number;
   ratio: number;
+  numberInWarehouse: number;
 };

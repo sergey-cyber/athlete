@@ -3,9 +3,9 @@
 import { useState } from "react";
 import { Button } from "../ui/button";
 import { useToast } from "../ui/use-toast";
-import { ProductForm } from "../product/product-form";
 import { AmenitiesType } from "@/service/amenities/types";
 import { createAmenities } from "@/service/amenities/actions";
+import { AmenitiesForm } from "./amenities-form";
 
 export function AmenitiesCreateForm() {
   const { toast } = useToast();
@@ -35,10 +35,10 @@ export function AmenitiesCreateForm() {
   };
 
   return (
-    <ProductForm values={values} onChange={onChange}>
+    <AmenitiesForm values={values} onChange={onChange}>
       <Button disabled={pending} onClick={onSubmit}>
         Создать
       </Button>
-    </ProductForm>
+    </AmenitiesForm>
   );
 }

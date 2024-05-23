@@ -17,7 +17,7 @@ export class Requestable {
       headers: { ...params?.headers, "Content-Type": "application/json" }
     });
     if (!response.ok) {
-      throw new Error("Request error. " + response.statusText ?? "");
+      throw new Error("Request error " + response.status ?? "");
     }
     return response.json() as T;
   }

@@ -7,33 +7,29 @@ import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Price } from "./price";
 import { Separator } from "../ui/separator";
 import { ReactNode } from "react";
-import { OrderType } from "@/service/order/types";
-import { useOrderStorage } from "../providers/order-storage-provider";
+import { AmenitiesType } from "@/service/amenities/types";
 
 interface Props {
   title: ReactNode;
-  productType: keyof Pick<OrderType, "merchandises" | "amenities">;
+  amenities: AmenitiesType[];
+  onChange: (value: AmenitiesType[]) => void;
 }
 
-export function CartProductSection({ title, productType }: Props) {
-  const orderStorage = useOrderStorage();
-
-  const products = orderStorage.get(productType) || [];
-
-  function getProductCount(id: number) {
-    return products.filter((el) => el.id === id).length;
+export function AmenitiesList({ title, amenities, onChange }: Props) {
+  function getAmenitiesCount(id: number) {
+    return amenities.filter((el) => el.id === id).length;
   }
 
-  const uniqueProducts: typeof products = [];
+  const uniqueAmenities: typeof amenities = [];
 
-  for (const product of products) {
-    if (!uniqueProducts.some(({ id }) => id === product.id)) {
-      uniqueProducts.push(product);
+  for (const product of amenities) {
+    if (!uniqueAmenities.some(({ id }) => id === product.id)) {
+      uniqueAmenities.push(product);
     }
   }
 
   function getTotalPrice() {
-    return products.reduce((acc, item) => acc + item.price, 0);
+    return amenities.reduce((acc, item) => acc + item.price, 0);
   }
 
   return (
@@ -42,8 +38,8 @@ export function CartProductSection({ title, productType }: Props) {
         <CardTitle>{title}</CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
-        {uniqueProducts.length ? (
-          uniqueProducts.map((product, i) => (
+        {uniqueAmenities.length ? (
+          uniqueAmenities.map((product, i) => (
             <>
               <div key={product.id} className="grid grid-cols-5 gap-4 min-h-20">
                 <div className="col-span-3">
@@ -55,12 +51,11 @@ export function CartProductSection({ title, productType }: Props) {
                 <div className="flex justify-center items-center gap-x-2">
                   <Button
                     onClick={() => {
-                      const indexOfRemove = products.findIndex(
+                      const indexOfRemove = amenities.findIndex(
                         ({ id }) => id === product.id
                       );
-                      orderStorage.set(
-                        productType,
-                        products.filter((_, index) => index !== indexOfRemove)
+                      onChange(
+                        amenities.filter((_, index) => index !== indexOfRemove)
                       );
                     }}
                     size={"mini"}
@@ -68,11 +63,9 @@ export function CartProductSection({ title, productType }: Props) {
                   >
                     <Minus size={12} />
                   </Button>
-                  {getProductCount(product.id)}
+                  {getAmenitiesCount(product.id)}
                   <Button
-                    onClick={() =>
-                      orderStorage.set(productType, [...products, product])
-                    }
+                    onClick={() => onChange([...amenities, product])}
                     size={"mini"}
                     variant={"outline"}
                   >
@@ -80,7 +73,9 @@ export function CartProductSection({ title, productType }: Props) {
                   </Button>
                 </div>
                 <div className="flex justify-center items-center">
-                  <Price price={product.price * getProductCount(product.id)} />
+                  <Price
+                    price={product.price * getAmenitiesCount(product.id)}
+                  />
                 </div>
               </div>
               <Separator />

@@ -5,7 +5,7 @@ import { MerchandiseType } from "@/service/merchandise/types";
 import { Button } from "../ui/button";
 import { editMerchandise } from "@/service/merchandise/actions";
 import { useToast } from "../ui/use-toast";
-import { ProductForm } from "../product/product-form";
+import { MerchandiseForm } from "./merchandise-form";
 
 interface Props {
   merchandise: MerchandiseType;
@@ -38,10 +38,10 @@ export function MerchandiseEditForm({ merchandise }: Props) {
   };
 
   return (
-    <ProductForm values={values} onChange={onChange}>
+    <MerchandiseForm values={values} onChange={onChange}>
       <Button disabled={pending} onClick={onSubmit}>
         Сохранить
       </Button>
-    </ProductForm>
+    </MerchandiseForm>
   );
 }

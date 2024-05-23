@@ -1,12 +1,16 @@
-import { CartProductsList } from "@/components/shopping-cart/products-list";
+import { CreaeteOrderForm } from "@/components/order/create-order-form";
+import { statusService } from "@/service/status";
+import { userService } from "@/service/user";
 
-export default function ShoppingCartPage() {
+export default async function ShoppingCartPage() {
+  const statuses = await statusService.search();
+  const clients = await userService.search();
   return (
     <section className="py-6 space-y-6">
       <div className="space-y-3">
-        <h1 className="text-2xl font-bold">Корзина</h1>
+        <h1 className="text-2xl font-bold">Оформление заявки</h1>
       </div>
-      <CartProductsList />
+      <CreaeteOrderForm clients={clients} statuses={statuses} />
     </section>
   );
 }

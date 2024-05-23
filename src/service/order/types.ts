@@ -1,6 +1,7 @@
 import { AmenitiesType } from "../amenities/types";
 import { MerchandiseType } from "../merchandise/types";
 import { StatusType } from "../status/types";
+import { UserType } from "../user/types";
 
 export type OrderType = {
   id: number;
@@ -19,9 +20,9 @@ export type OrderType = {
 
   comments: string;
 
-  client: {};
+  client: UserType;
 
-  users: {};
+  users: UserType;
 
   totalNumberOfMerchandise: number;
 
