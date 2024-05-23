@@ -11,7 +11,7 @@ export function MerchendiseListItem({ item }: Props) {
   return (
     <ProductListItem {...item}>
       <MerchandiseItemMenu merchandise={item} />
-      <AddProductToCartButton product={item} productType="merchendise" />
+      <AddProductToCartButton product={item} productType="merchandises" />
     </ProductListItem>
   );
 }

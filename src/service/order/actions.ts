@@ -1,6 +1,6 @@
 "use server";
 
-import { toMerchandises } from "@/lib/routes";
+import { toOrders } from "@/lib/routes";
 import { orderService } from ".";
 import { OrderType } from "./types";
 import { revalidatePath } from "next/cache";
@@ -9,7 +9,7 @@ import { redirect } from "next/navigation";
 export async function createOrder(payload: Partial<OrderType>) {
   try {
     await orderService.create(payload);
-    const redirectPath = toMerchandises();
+    const redirectPath = toOrders();
     revalidatePath(redirectPath);
     redirect(redirectPath);
   } catch (err) {

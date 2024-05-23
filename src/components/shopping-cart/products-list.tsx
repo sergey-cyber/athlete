@@ -1,7 +1,6 @@
 "use client";
 
 import { CreditCard, HandPlatter, ShoppingBag } from "lucide-react";
-import { useCartStorage } from "../providers/cart-provider";
 import { Card, CardHeader, CardTitle } from "../ui/card";
 import { CartProductSection } from "./product-section";
 import { Price } from "./price";
@@ -9,19 +8,23 @@ import { ReactNode, useState } from "react";
 import { Button } from "../ui/button";
 import { createOrder } from "@/service/order/actions";
 import { useToast } from "../ui/use-toast";
+import { useOrderStorage } from "../providers/order-storage-provider";
 
 export function CartProductsList() {
-  const { getCartItems, getTotalPrice } = useCartStorage();
+  const oderStorage = useOrderStorage();
   const { toast } = useToast();
 
   const [pending, setPending] = useState(false);
+
+  const merchandises = oderStorage.get("merchandises") || [];
+  const amenities = oderStorage.get("amenities") || [];
 
   const onSubmit = async () => {
     try {
       setPending(true);
       await createOrder({
-        merchandises: getCartItems("merchendise").map(({ item }) => item),
-        amenities: getCartItems("amenities").map(({ item }) => item)
+        merchandises,
+        amenities
       });
     } catch (err: any) {
       toast({
@@ -34,15 +37,22 @@ export function CartProductsList() {
     }
   };
 
+  function getTotalPrice() {
+    return [...merchandises, ...amenities].reduce(
+      (acc, { price }) => acc + price,
+      0
+    );
+  }
+
   return (
     <div className="space-y-6">
       <CartProductSection
         title={<Title title="Товары" icon={<ShoppingBag />} />}
-        type="merchendise"
+        productType="merchandises"
       />
       <CartProductSection
         title={<Title title="Услуги" icon={<HandPlatter />} />}
-        type="amenities"
+        productType="amenities"
       />
       <Card>
         <CardHeader>
@@ -52,7 +62,7 @@ export function CartProductsList() {
             </div>
             <Button
               onClick={onSubmit}
-              disabled={pending || getCartItems("merchendise").length < 1}
+              disabled={pending || merchandises.length < 1}
             >
               <CreditCard className="pr-2" />
               Оформить заказ

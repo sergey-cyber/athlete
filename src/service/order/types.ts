@@ -2,7 +2,7 @@ import { AmenitiesType } from "../amenities/types";
 import { MerchandiseType } from "../merchandise/types";
 import { StatusType } from "../status/types";
 
-export interface OrderType {
+export type OrderType = {
   id: number;
 
   orderName: string;
@@ -28,4 +28,4 @@ export interface OrderType {
   totalNumberOfAmenities: number;
 
   totalCostOfOrder: number;
-}
+};

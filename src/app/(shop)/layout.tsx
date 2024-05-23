@@ -1,5 +1,5 @@
 import { AppHeader } from "@/components/app-header";
-import { CartContextProvider } from "@/components/providers/cart-provider";
+import { OrderContextProvider } from "@/components/providers/order-storage-provider";
 import { Separator } from "@/components/ui/separator";
 
 export default function ShopLayout({
@@ -9,11 +9,11 @@ export default function ShopLayout({
 }>) {
   return (
     <main>
-      <CartContextProvider>
+      <OrderContextProvider>
         <AppHeader />
         <Separator />
         <section className="container">{children}</section>
-      </CartContextProvider>
+      </OrderContextProvider>
     </main>
   );
 }

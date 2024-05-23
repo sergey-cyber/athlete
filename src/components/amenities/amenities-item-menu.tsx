@@ -8,7 +8,7 @@ import { Confirm } from "../confirm";
 import { useRouter } from "next/navigation";
 import { toEditAmenities } from "@/lib/routes";
 import { AmenitiesType } from "@/service/amenities/types";
-import { useCartStorage } from "../providers/cart-provider";
+import { useOrderStorage } from "../providers/order-storage-provider";
 
 interface Props {
   amenities: AmenitiesType;
@@ -16,7 +16,7 @@ interface Props {
 
 export function AmenitiesItemMenu({ amenities }: Props) {
   const router = useRouter();
-  const { removeItem } = useCartStorage();
+  const orderStorage = useOrderStorage();
   const { toast } = useToast();
   const [openConfirm, setOpenConfirm] = useState(false);
   const [pending, setPending] = useState(false);
@@ -25,7 +25,7 @@ export function AmenitiesItemMenu({ amenities }: Props) {
     setPending(true);
     try {
       await removeAmenities(amenities.id);
-      removeItem(amenities.id, "amenities");
+      orderStorage.deleteAmenities(amenities.id);
       toast({
         title: `Услуга '${amenities.title}' удалена успешно.`
       });
