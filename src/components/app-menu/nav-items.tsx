@@ -32,7 +32,7 @@ interface Props {
 }
 
 const items = [
-  { href: toHome(), label: "Главная", icon: <Home /> },
+  //{ href: toHome(), label: "Главная", icon: <Home /> },
   { href: toUsers(), label: "Пользователи", icon: <Users /> },
   { href: toMerchandises(), label: "Товары", icon: <ShoppingBag /> },
   { href: toAmenitiesList(), label: "Услуги", icon: <HandPlatter /> },

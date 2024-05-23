@@ -1,7 +1,6 @@
-import { ModeToggle } from "@/components/mode-toggle";
-import { Button } from "@/components/ui/button";
-import Image from "next/image";
+import { toMerchandises } from "@/lib/routes";
+import { redirect } from "next/navigation";
 
-export default function Home() {
-  return <section>Home</section>;
+export default function HomePage() {
+  return redirect(toMerchandises());
 }
