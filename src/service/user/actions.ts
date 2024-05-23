@@ -17,3 +17,12 @@ export async function createUser(payload: Partial<UserType>) {
     throw e;
   }
 }
+
+export async function removeUser(id: number) {
+  try {
+    await userService.remove(id);
+    revalidatePath(toUsers());
+  } catch (err) {
+    throw err;
+  }
+}

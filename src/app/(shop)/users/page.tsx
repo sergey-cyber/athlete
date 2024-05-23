@@ -1,5 +1,6 @@
 import { Empty } from "@/components/empty";
 import { Separator } from "@/components/ui/separator";
+import { DeleteUserButton } from "@/components/users/delete-user-button";
 import { UserAvatar } from "@/components/users/user-avatar";
 import { userService } from "@/service/user";
 import { UserType } from "@/service/user/types";
@@ -42,6 +43,9 @@ export default async function UsersPage() {
                       </span>
                     ) : null}
                   </div>
+                </div>
+                <div className="flex items-center">
+                  <DeleteUserButton user={user} />
                 </div>
               </div>
             </div>

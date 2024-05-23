@@ -16,6 +16,12 @@ class UserService extends Requestable {
       body: JSON.stringify(user)
     });
   }
+
+  public async remove(id: number) {
+    return await fetch(`${this.path}/delete?id=${id}`, {
+      method: "DELETE"
+    });
+  }
 }
 
 export const userService = new UserService("/user");
