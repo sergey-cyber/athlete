@@ -1,7 +1,11 @@
 import { Empty } from "@/components/empty";
 import { DeleteOrderButton } from "@/components/order/delete-order-button";
+import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { toEditOrder } from "@/lib/routes";
 import { orderService } from "@/service/order";
+import { Pencil } from "lucide-react";
+import Link from "next/link";
 
 export default async function OrdersPage() {
   const orders = await orderService.search();
@@ -28,7 +32,12 @@ export default async function OrdersPage() {
                     ) : null}
                   </div>
                 </div>
-                <div className="flex items-center">
+                <div className="flex items-center gap-x-2">
+                  <Button size={"mini"} variant={"outline"} asChild>
+                    <Link href={toEditOrder(order.id)}>
+                      <Pencil size={16} />
+                    </Link>
+                  </Button>
                   <DeleteOrderButton order={order} />
                 </div>
               </div>

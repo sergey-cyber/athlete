@@ -58,6 +58,10 @@ export const toOrders = () => {
   return "/order";
 };
 
+export const toEditOrder = (id: number) => {
+  return toOrders() + `/${id}/edit`;
+};
+
 // Status
 
 export const toStatuses = () => {

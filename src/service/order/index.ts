@@ -13,6 +13,13 @@ class OrderService extends Requestable {
     });
   }
 
+  public async edit(order: Partial<OrderType>) {
+    return this.makeRequest<OrderType>("/edit", {
+      method: "PUT",
+      body: JSON.stringify(order)
+    });
+  }
+
   public async remove(id: number) {
     return await fetch(`${this.path}/delete?id=${id}`, {
       method: "DELETE"

@@ -18,12 +18,24 @@ export async function createOrder(payload: Partial<OrderType>) {
   }
 }
 
+export async function editOrder(payload: Partial<OrderType>) {
+  try {
+    await orderService.edit(payload);
+    const redirectPath = toOrders();
+    revalidatePath(redirectPath);
+    redirect(redirectPath);
+  } catch (err) {
+    console.error("Order edition error: ", err);
+    throw err;
+  }
+}
+
 export async function deleteOrder(id: number) {
   try {
     await orderService.remove(id);
     revalidatePath(toOrders());
   } catch (err) {
-    console.error("Order creation error: ", err);
+    console.error("Delete Order error: ", err);
     throw err;
   }
 }
