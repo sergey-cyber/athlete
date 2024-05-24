@@ -28,6 +28,8 @@ export function AmenitiesList({ title, amenities, onChange }: Props) {
     }
   }
 
+  uniqueAmenities.sort((a, b) => a.title.localeCompare(b.title));
+
   function getTotalPrice() {
     return amenities.reduce((acc, item) => acc + item.price, 0);
   }

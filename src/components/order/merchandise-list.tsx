@@ -28,6 +28,8 @@ export function MerchandiseList({ title, merchandises, onChange }: Props) {
     }
   }
 
+  uniqueMerchandises.sort((a, b) => a.title.localeCompare(b.title));
+
   function getTotalPrice() {
     return merchandises.reduce((acc, item) => acc + item.price, 0);
   }
