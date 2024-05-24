@@ -13,6 +13,12 @@ class OrderService extends Requestable {
     });
   }
 
+  public async remove(id: number) {
+    return await fetch(`${this.path}/delete?id=${id}`, {
+      method: "DELETE"
+    });
+  }
+
   public async search() {
     return this.makeRequest<OrderType[]>("/getAllOrders");
   }

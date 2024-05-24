@@ -17,3 +17,13 @@ export async function createOrder(payload: Partial<OrderType>) {
     throw err;
   }
 }
+
+export async function deleteOrder(id: number) {
+  try {
+    await orderService.remove(id);
+    revalidatePath(toOrders());
+  } catch (err) {
+    console.error("Order creation error: ", err);
+    throw err;
+  }
+}
