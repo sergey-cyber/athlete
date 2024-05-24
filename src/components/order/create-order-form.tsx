@@ -9,6 +9,7 @@ import { useToast } from "../ui/use-toast";
 import { createOrder } from "@/service/order/actions";
 import { useState } from "react";
 import { CreditCard } from "lucide-react";
+import { validateOrderSchema } from "./schemas";
 
 interface Props {
   statuses: StatusType[];
@@ -19,11 +20,20 @@ export function CreaeteOrderForm({ statuses, clients }: Props) {
   const orderStorage = useOrderStorage();
   const { toast } = useToast();
   const [pending, setPending] = useState(false);
+  const order = orderStorage.getOrder();
 
   const onSubmit = async () => {
+    setPending(true);
     try {
-      setPending(true);
-      await createOrder(orderStorage.getOrder());
+      const result = validateOrderSchema.safeParse(order);
+      if (!result.success) {
+        toast({
+          title: result.error.issues[0].message,
+          variant: "destructive"
+        });
+        return;
+      }
+      await createOrder(order);
       orderStorage.clear();
       toast({
         title: "Заявка создана успешно."
@@ -44,7 +54,7 @@ export function CreaeteOrderForm({ statuses, clients }: Props) {
       statuses={statuses}
       clients={clients}
       onChange={(key, value) => orderStorage.set(key, value)}
-      values={orderStorage.getOrder()}
+      values={order}
     >
       <Button onClick={onSubmit} disabled={pending}>
         <CreditCard className="pr-2" />

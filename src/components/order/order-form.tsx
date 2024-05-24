@@ -18,6 +18,7 @@ import { StatusType } from "@/service/status/types";
 import { UserType } from "@/service/user/types";
 import { Textarea } from "../ui/textarea";
 import { AmenitiesList } from "./amenities-list";
+import { RequiredLabel } from "../required-label";
 
 type FormValues = Partial<OrderType>;
 
@@ -57,7 +58,7 @@ export function OrderForm({
         </CardHeader>
         <CardContent className="space-y-4">
           <div>
-            <Label>Название заявки</Label>
+            <RequiredLabel>Название заявки</RequiredLabel>
             <Input
               onChange={(e) => onChange("orderName", e.currentTarget.value)}
               value={values.orderName}
@@ -71,7 +72,7 @@ export function OrderForm({
             />
           </div>
           <div>
-            <Label>Статус</Label>
+            <RequiredLabel>Статус</RequiredLabel>
             <Select
               onValueChange={(v) =>
                 onChange(
@@ -106,7 +107,7 @@ export function OrderForm({
             />
           </div>
           <div>
-            <Label>Клиент</Label>
+            <RequiredLabel>Клиент</RequiredLabel>
             <Select
               onValueChange={(v) =>
                 onChange(
