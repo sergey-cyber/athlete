@@ -6,6 +6,7 @@ import { Button } from "../ui/button";
 import { createMerchandise } from "@/service/merchandise/actions";
 import { useToast } from "../ui/use-toast";
 import { MerchandiseForm } from "./merchandise-form";
+import { merchandiseFormSchema } from "./schemas";
 
 export function MerchandiseCreateForm() {
   const { toast } = useToast();
@@ -15,6 +16,14 @@ export function MerchandiseCreateForm() {
   const onSubmit = async () => {
     setPending(true);
     try {
+      const result = merchandiseFormSchema.safeParse(values);
+      if (!result.success) {
+        toast({
+          title: result.error.issues[0].message,
+          variant: "destructive"
+        });
+        return;
+      }
       await createMerchandise(values);
       toast({
         title: "Товар создан успешно."

@@ -6,6 +6,7 @@ import { Button } from "../ui/button";
 import { editMerchandise } from "@/service/merchandise/actions";
 import { useToast } from "../ui/use-toast";
 import { MerchandiseForm } from "./merchandise-form";
+import { merchandiseFormSchema } from "./schemas";
 
 interface Props {
   merchandise: MerchandiseType;
@@ -19,6 +20,14 @@ export function MerchandiseEditForm({ merchandise }: Props) {
   const onSubmit = async () => {
     setPending(true);
     try {
+      const result = merchandiseFormSchema.safeParse(values);
+      if (!result.success) {
+        toast({
+          title: result.error.issues[0].message,
+          variant: "destructive"
+        });
+        return;
+      }
       await editMerchandise(values);
       toast({
         title: "Товар изменен успешно."
