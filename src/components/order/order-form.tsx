@@ -1,7 +1,7 @@
 import { OrderType } from "@/service/order/types";
-import { PropsWithChildren, ReactNode } from "react";
+import { PropsWithChildren, ReactNode, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
-import { HandPlatter, Settings, ShoppingBag } from "lucide-react";
+import { File, HandPlatter, Settings, ShoppingBag } from "lucide-react";
 import { Price } from "./price";
 import { MerchandiseList } from "./merchandise-list";
 import { Input } from "../ui/input";
@@ -12,13 +12,14 @@ import {
   SelectGroup,
   SelectItem,
   SelectTrigger,
-  SelectValue
+  SelectValue,
 } from "../ui/select";
 import { StatusType } from "@/service/status/types";
 import { UserType } from "@/service/user/types";
 import { Textarea } from "../ui/textarea";
 import { AmenitiesList } from "./amenities-list";
 import { RequiredLabel } from "../required-label";
+import { FileStorageType } from "@/service/fileStorage/types";
 
 type FormValues = Partial<OrderType>;
 
@@ -27,6 +28,8 @@ interface Props extends PropsWithChildren {
   onChange: <K extends keyof OrderType>(key: K, value: OrderType[K]) => void;
   statuses: StatusType[];
   clients: UserType[];
+  onFileChange: (file: File | undefined) => void;
+  currentFile?: FileStorageType;
 }
 
 export function OrderForm({
@@ -34,7 +37,9 @@ export function OrderForm({
   values,
   statuses,
   clients,
-  onChange
+  onChange,
+  onFileChange,
+  currentFile,
 }: Props) {
   const { merchandises = [], amenities = [] } = values;
   function getTotalPrice() {
@@ -43,6 +48,8 @@ export function OrderForm({
       0
     );
   }
+
+  const [isFileChanged, setIsFileChanged] = useState(false);
 
   // Ограничение количества выбираемых элементов, так как бэк не поддерживает paging
   const selectableClients = clients.slice(0, 15);
@@ -130,6 +137,22 @@ export function OrderForm({
                 </SelectGroup>
               </SelectContent>
             </Select>
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="file">Файл</Label>
+            {currentFile && !isFileChanged ? (
+              <div className="flex gap-x-2 ">
+                <File /> <span>{currentFile.title}</span>
+              </div>
+            ) : null}
+            <Input
+              onChange={(e) => {
+                onFileChange(e.target.files?.[0]);
+                setIsFileChanged(true);
+              }}
+              id="file"
+              type="file"
+            />
           </div>
           <div>
             <Label>Комментарий</Label>

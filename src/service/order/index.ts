@@ -6,23 +6,23 @@ class OrderService extends Requestable {
     super(path);
   }
 
-  public async create(order: Partial<OrderType>) {
+  public async create(payload: FormData) {
     return this.makeRequest<OrderType>("/save", {
       method: "POST",
-      body: JSON.stringify(order)
+      body: payload,
     });
   }
 
-  public async edit(order: Partial<OrderType>) {
+  public async edit(payload: FormData) {
     return this.makeRequest<OrderType>("/edit", {
       method: "PUT",
-      body: JSON.stringify(order)
+      body: payload,
     });
   }
 
   public async remove(id: number) {
     return await fetch(`${this.path}/delete?id=${id}`, {
-      method: "DELETE"
+      method: "DELETE",
     });
   }
 

@@ -10,20 +10,21 @@ class AmenitiesService extends Requestable {
     return this.makeRequest<AmenitiesType>("/save", {
       method: "POST",
       body: JSON.stringify(amenities),
-      headers: { "Content-Type": "application/json" }
+      headers: { "Content-Type": "application/json" },
     });
   }
 
   public async edit(amenities: Partial<AmenitiesType>) {
     return this.makeRequest<AmenitiesType>("/edit", {
       method: "PUT",
-      body: JSON.stringify(amenities)
+      body: JSON.stringify(amenities),
+      headers: { "Content-Type": "application/json" },
     });
   }
 
   public async remove(id: number) {
     return await fetch(`${this.path}/delete?id=${id}`, {
-      method: "DELETE"
+      method: "DELETE",
     });
   }
 

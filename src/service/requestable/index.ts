@@ -12,10 +12,7 @@ export class Requestable {
 
   protected async makeRequest<T>(path: string, params?: RequestParams) {
     console.info("Start request to " + this.path + path);
-    const response = await fetch(this.path + path, {
-      ...params,
-      headers: { ...params?.headers, "Content-Type": "application/json" }
-    });
+    const response = await fetch(this.path + path, params);
     if (!response.ok) {
       throw new Error("Request error " + response.status ?? "");
     }

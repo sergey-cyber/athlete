@@ -6,7 +6,7 @@ import { OrderType } from "./types";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
-export async function createOrder(payload: Partial<OrderType>) {
+export async function createOrder(payload: FormData) {
   try {
     await orderService.create(payload);
     const redirectPath = toOrders();
@@ -18,7 +18,7 @@ export async function createOrder(payload: Partial<OrderType>) {
   }
 }
 
-export async function editOrder(payload: Partial<OrderType>) {
+export async function editOrder(payload: FormData) {
   try {
     await orderService.edit(payload);
     const redirectPath = toOrders();

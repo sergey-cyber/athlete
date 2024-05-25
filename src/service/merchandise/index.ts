@@ -9,20 +9,22 @@ class MerchandiseService extends Requestable {
   public async create(merchandise: Partial<MerchandiseType>) {
     return this.makeRequest<MerchandiseType>("/save", {
       method: "POST",
-      body: JSON.stringify(merchandise)
+      body: JSON.stringify(merchandise),
+      headers: { "Content-Type": "application/json" },
     });
   }
 
   public async edit(merchandise: Partial<MerchandiseType>) {
     return this.makeRequest<MerchandiseType>("/edit", {
       method: "PUT",
-      body: JSON.stringify(merchandise)
+      body: JSON.stringify(merchandise),
+      headers: { "Content-Type": "application/json" },
     });
   }
 
   public async remove(id: number) {
     return await fetch(`${this.path}/delete?id=${id}`, {
-      method: "DELETE"
+      method: "DELETE",
     });
   }
 

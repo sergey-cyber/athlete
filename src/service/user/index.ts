@@ -13,13 +13,14 @@ class UserService extends Requestable {
   public async create(user: Partial<UserType>) {
     return this.makeRequest<UserType>("/save", {
       method: "POST",
-      body: JSON.stringify(user)
+      body: JSON.stringify(user),
+      headers: { "Content-Type": "application/json" },
     });
   }
 
   public async remove(id: number) {
     return await fetch(`${this.path}/delete?id=${id}`, {
-      method: "DELETE"
+      method: "DELETE",
     });
   }
 }

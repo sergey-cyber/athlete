@@ -9,20 +9,22 @@ class StatusService extends Requestable {
   public async create(status: Partial<StatusType>) {
     return this.makeRequest<StatusType>("/save", {
       method: "POST",
-      body: JSON.stringify(status)
+      body: JSON.stringify(status),
+      headers: { "Content-Type": "application/json" },
     });
   }
 
   public async edit(status: Partial<StatusType>) {
     return this.makeRequest<StatusType>("/edit", {
       method: "PUT",
-      body: JSON.stringify(status)
+      body: JSON.stringify(status),
+      headers: { "Content-Type": "application/json" },
     });
   }
 
   public async remove(id: number) {
     return await fetch(`${this.path}/delete?id=${id}`, {
-      method: "DELETE"
+      method: "DELETE",
     });
   }
 

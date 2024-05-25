@@ -20,6 +20,7 @@ export function CreaeteOrderForm({ statuses, clients }: Props) {
   const orderStorage = useOrderStorage();
   const { toast } = useToast();
   const [pending, setPending] = useState(false);
+  const [file, setFile] = useState<File | undefined>();
   const order = orderStorage.getOrder();
 
   const onSubmit = async () => {
@@ -29,20 +30,25 @@ export function CreaeteOrderForm({ statuses, clients }: Props) {
       if (!result.success) {
         toast({
           title: result.error.issues[0].message,
-          variant: "destructive"
+          variant: "destructive",
         });
         return;
       }
-      await createOrder(order);
+      const formData = new FormData();
+      if (file) {
+        formData.append("file", file);
+      }
+      formData.append("orderDTO", JSON.stringify(order));
+      await createOrder(formData);
       orderStorage.clear();
       toast({
-        title: "Заявка создана успешно."
+        title: "Заявка создана успешно.",
       });
     } catch (err: any) {
       toast({
         title: "Ошибка при оформлении заявки.",
         description: err?.message,
-        variant: "destructive"
+        variant: "destructive",
       });
     } finally {
       setPending(false);
@@ -51,6 +57,7 @@ export function CreaeteOrderForm({ statuses, clients }: Props) {
 
   return (
     <OrderForm
+      onFileChange={(file) => setFile(file)}
       statuses={statuses}
       clients={clients}
       onChange={(key, value) => orderStorage.set(key, value)}

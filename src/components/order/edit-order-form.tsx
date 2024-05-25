@@ -10,17 +10,25 @@ import { useState } from "react";
 import { Save } from "lucide-react";
 import { validateOrderSchema } from "./schemas";
 import { OrderType } from "@/service/order/types";
+import { FileStorageType } from "@/service/fileStorage/types";
 
 interface Props {
   statuses: StatusType[];
   clients: UserType[];
+  currentFile?: FileStorageType;
   initialValue: Partial<OrderType>;
 }
 
-export function EditOrderForm({ statuses, clients, initialValue }: Props) {
+export function EditOrderForm({
+  statuses,
+  clients,
+  initialValue,
+  currentFile,
+}: Props) {
   const { toast } = useToast();
   const [pending, setPending] = useState(false);
   const [order, setOrder] = useState(initialValue);
+  const [file, setFile] = useState<File | undefined>();
 
   const onSubmit = async () => {
     setPending(true);
@@ -29,19 +37,24 @@ export function EditOrderForm({ statuses, clients, initialValue }: Props) {
       if (!result.success) {
         toast({
           title: result.error.issues[0].message,
-          variant: "destructive"
+          variant: "destructive",
         });
         return;
       }
-      await editOrder(order);
+      const formData = new FormData();
+      if (file) {
+        formData.append("file", file);
+      }
+      formData.append("orderDTO", JSON.stringify(order));
+      await editOrder(formData);
       toast({
-        title: "Заявка изменена успешно."
+        title: "Заявка изменена успешно.",
       });
     } catch (err: any) {
       toast({
         title: "Ошибка при изменении заявки.",
         description: err?.message,
-        variant: "destructive"
+        variant: "destructive",
       });
     } finally {
       setPending(false);
@@ -50,6 +63,8 @@ export function EditOrderForm({ statuses, clients, initialValue }: Props) {
 
   return (
     <OrderForm
+      currentFile={currentFile}
+      onFileChange={(file) => setFile(file)}
       statuses={statuses}
       clients={clients}
       onChange={(key, value) => setOrder({ ...order, [key]: value })}
