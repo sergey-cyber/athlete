@@ -29,7 +29,7 @@ class MerchandiseService extends Requestable {
   }
 
   public async search() {
-    return this.makeRequest<MerchandiseType[]>("/all");
+    return this.makeRequest<MerchandiseType[]>("/all", { cache: "no-store" });
   }
 }
 

@@ -7,7 +7,7 @@ class UserService extends Requestable {
   }
 
   public async search() {
-    return this.makeRequest<UserType[]>("/all");
+    return this.makeRequest<UserType[]>("/all", { cache: "no-store" });
   }
 
   public async create(user: Partial<UserType>) {

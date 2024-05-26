@@ -20,10 +20,7 @@ export default async function EditOrderPage({ params }: Props) {
     // TODO: отобразить not-found page
     return null;
   }
-
-  const files = await fileStorageService.search();
-
-  const file = files.find(({ orderId }) => orderId == params.id);
+  const file = await fileStorageService.getFileByOrderId(orderToEdit.id);
 
   return (
     <section className="py-6 space-y-6">

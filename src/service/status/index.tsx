@@ -29,7 +29,7 @@ class StatusService extends Requestable {
   }
 
   public async search() {
-    return this.makeRequest<StatusType[]>("/all");
+    return this.makeRequest<StatusType[]>("/all", { cache: "no-store" });
   }
 }
 

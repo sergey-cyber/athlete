@@ -2,6 +2,7 @@ interface RequestParams {
   body?: any;
   method?: "POST" | "GET" | "PUT" | "DELETE";
   headers?: any;
+  cache?: "no-store";
 }
 
 export class Requestable {

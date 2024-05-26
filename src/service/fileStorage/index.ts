@@ -7,12 +7,15 @@ class FileStorage extends Requestable {
   }
 
   public async search() {
-    return this.makeRequest<FileStorageType[]>("/getAllFiles");
+    return this.makeRequest<FileStorageType[]>("/getAllFiles", {
+      cache: "no-store",
+    });
   }
 
   public async getFileByOrderId(orderId: number) {
     return this.makeRequest<FileStorageType>(
-      `/fileByOrderId?orderId=${orderId}`
+      `/fileByOrderId?orderId=${orderId}`,
+      { cache: "no-store" }
     );
   }
 }

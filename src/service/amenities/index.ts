@@ -29,7 +29,7 @@ class AmenitiesService extends Requestable {
   }
 
   public async search() {
-    return this.makeRequest<AmenitiesType[]>("/all");
+    return this.makeRequest<AmenitiesType[]>("/all", { cache: "no-store" });
   }
 }
 
