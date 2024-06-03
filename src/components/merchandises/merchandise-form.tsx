@@ -37,7 +37,7 @@ export function MerchandiseForm({ values, onChange, children }: Props) {
         <RequiredLabel>Стоимость</RequiredLabel>
         <Input
           type="number"
-          value={values.price}
+          value={values.price || ""}
           onChange={(e) => onChange("price", Number(e.currentTarget.value))}
         />
       </div>
@@ -46,7 +46,7 @@ export function MerchandiseForm({ values, onChange, children }: Props) {
         <Input
           required
           type="number"
-          value={values.numberInWarehouse}
+          value={values.numberInWarehouse || ""}
           onChange={(e) =>
             onChange("numberInWarehouse", Number(e.currentTarget.value))
           }

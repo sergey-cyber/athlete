@@ -110,7 +110,7 @@ export function OrderForm({
                 onChange("priority", Number(e.currentTarget.value))
               }
               type="number"
-              value={values.priority}
+              value={values.priority || ""}
             />
           </div>
           <div>

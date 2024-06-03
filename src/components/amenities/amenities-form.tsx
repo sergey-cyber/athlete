@@ -27,7 +27,7 @@ export function AmenitiesForm({ values, onChange, children }: Props) {
       <Input
         type="number"
         placeholder="Стоимость"
-        value={values.price}
+        value={values.price || ""}
         onChange={(e) => onChange("price", e.currentTarget.value)}
       />
       {/*Submit button placement*/}

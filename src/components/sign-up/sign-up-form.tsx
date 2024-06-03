@@ -9,7 +9,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage
+  FormMessage,
 } from "../ui/form";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
@@ -19,13 +19,13 @@ import { useToast } from "../ui/use-toast";
 
 const formSchema = z.object({
   firstName: z.string().min(1, {
-    message: "Обязательное поле"
+    message: "Обязательное поле",
   }),
   secondName: z.string(),
   middleName: z.string(),
   email: z.string(),
   phone: z.coerce.number(),
-  address: z.string()
+  address: z.string(),
   /* password: z.string().min(6, {
       message: "Минимум 6 символов"
     }),
@@ -53,10 +53,10 @@ export function SignUpForm() {
       middleName: "",
       email: "",
       phone: 0,
-      address: ""
+      address: "",
       // password: "",
       // confirmPassword: ""
-    }
+    },
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
@@ -64,12 +64,12 @@ export function SignUpForm() {
     try {
       await createUser(values);
       toast({
-        title: "Пользователь успешно зарегистрирован."
+        title: "Пользователь успешно зарегистрирован.",
       });
     } catch (err) {
       toast({
         title: "Ошибка при регистрации пользователя.",
-        variant: "destructive"
+        variant: "destructive",
       });
     } finally {
       setPending(false);
@@ -138,7 +138,7 @@ export function SignUpForm() {
             <FormItem>
               <FormLabel>Телефон</FormLabel>
               <FormControl>
-                <Input type="number" placeholder="" {...field} />
+                <Input type="number" {...field} value={field.value || ""} />
               </FormControl>
               <FormMessage />
             </FormItem>
