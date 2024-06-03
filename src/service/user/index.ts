@@ -19,9 +19,12 @@ class UserService extends Requestable {
   }
 
   public async remove(id: number) {
-    return await fetch(`${this.path}/delete?id=${id}`, {
+    const response = await fetch(`${this.path}/delete?id=${id}`, {
       method: "DELETE",
     });
+    if (!response.ok) {
+      throw new Error("Request error " + response.status ?? "");
+    }
   }
 }
 
