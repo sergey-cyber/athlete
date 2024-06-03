@@ -5,6 +5,7 @@ import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 import { AmenitiesType } from "@/service/amenities/types";
 import { Label } from "../ui/label";
+import { RequiredLabel } from "../required-label";
 
 interface Props extends PropsWithChildren {
   values: Partial<AmenitiesType>;
@@ -15,7 +16,7 @@ export function AmenitiesForm({ values, onChange, children }: Props) {
   return (
     <div className="flex flex-col w-1/3 gap-y-4 pt-4">
       <div>
-        <Label>Название</Label>
+        <RequiredLabel>Название</RequiredLabel>
         <Input
           type="string"
           value={values.title}
@@ -30,11 +31,11 @@ export function AmenitiesForm({ values, onChange, children }: Props) {
         />
       </div>
       <div>
-        <Label>Стоимость</Label>
+        <RequiredLabel>Стоимость</RequiredLabel>
         <Input
           type="number"
           value={values.price || ""}
-          onChange={(e) => onChange("price", e.currentTarget.value)}
+          onChange={(e) => onChange("price", Number(e.currentTarget.value))}
         />
       </div>
       {/*Submit button placement*/}

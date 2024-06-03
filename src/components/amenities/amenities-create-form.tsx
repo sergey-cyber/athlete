@@ -6,6 +6,7 @@ import { useToast } from "../ui/use-toast";
 import { AmenitiesType } from "@/service/amenities/types";
 import { createAmenities } from "@/service/amenities/actions";
 import { AmenitiesForm } from "./amenities-form";
+import { amenitiesFormSchema } from "./schemas";
 
 export function AmenitiesCreateForm() {
   const { toast } = useToast();
@@ -15,15 +16,23 @@ export function AmenitiesCreateForm() {
   const onSubmit = async () => {
     setPending(true);
     try {
+      const result = amenitiesFormSchema.safeParse(values);
+      if (!result.success) {
+        toast({
+          title: result.error.issues[0].message,
+          variant: "destructive",
+        });
+        return;
+      }
       await createAmenities(values);
       toast({
-        title: "Услуга создана успешно."
+        title: "Услуга создана успешно.",
       });
     } catch (err) {
       console.error(err);
       toast({
         title: "Ошибка при создании услуги.",
-        variant: "destructive"
+        variant: "destructive",
       });
     } finally {
       setPending(false);

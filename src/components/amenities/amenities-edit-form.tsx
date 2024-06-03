@@ -6,6 +6,7 @@ import { useToast } from "../ui/use-toast";
 import { AmenitiesType } from "@/service/amenities/types";
 import { editAmenities } from "@/service/amenities/actions";
 import { AmenitiesForm } from "./amenities-form";
+import { amenitiesFormSchema } from "./schemas";
 
 interface Props {
   amenities: AmenitiesType;
@@ -19,14 +20,22 @@ export function AmenitiesEditForm({ amenities }: Props) {
   const onSubmit = async () => {
     setPending(true);
     try {
+      const result = amenitiesFormSchema.safeParse(values);
+      if (!result.success) {
+        toast({
+          title: result.error.issues[0].message,
+          variant: "destructive",
+        });
+        return;
+      }
       await editAmenities(values);
       toast({
-        title: "Услуга изменена успешно."
+        title: "Услуга изменена успешно.",
       });
     } catch (err) {
       toast({
         title: "Ошибка при изменении услуги.",
-        variant: "destructive"
+        variant: "destructive",
       });
     } finally {
       setPending(false);
