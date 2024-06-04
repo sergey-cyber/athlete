@@ -1,7 +1,13 @@
 import { OrderType } from "@/service/order/types";
 import { PropsWithChildren, ReactNode, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
-import { File, HandPlatter, Settings, ShoppingBag } from "lucide-react";
+import {
+  File,
+  HandPlatter,
+  Megaphone,
+  Settings,
+  ShoppingBag,
+} from "lucide-react";
 import { Price } from "./price";
 import { MerchandiseList } from "./merchandise-list";
 import { Input } from "../ui/input";
@@ -22,6 +28,7 @@ import { RequiredLabel } from "../required-label";
 import { FileStorageType } from "@/service/fileStorage/types";
 import { UserInfo } from "../users/user-info";
 import { getFullName } from "@/lib/utils";
+import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
 
 type FormValues = Partial<OrderType>;
 
@@ -177,6 +184,14 @@ export function OrderForm({
         amenities={amenities}
         onChange={(value) => onChange("amenities", value)}
       />
+      <Alert className="border-lime-500 bg-lime-50 dark:bg-inherit">
+        <Megaphone className="h-4 w-4" />
+        <AlertTitle>Обратите внимание!</AlertTitle>
+        <AlertDescription>
+          Если вы выберите в сумме больше пяти товаров и услуг, то мы сделаем
+          скидку 20% от общей стоимости.
+        </AlertDescription>
+      </Alert>
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center justify-between">
