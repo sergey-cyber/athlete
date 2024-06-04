@@ -1,19 +1,11 @@
 import { Empty } from "@/components/empty";
 import { Separator } from "@/components/ui/separator";
 import { DeleteUserButton } from "@/components/users/delete-user-button";
-import { UserAvatar } from "@/components/users/user-avatar";
+import { UserInfo } from "@/components/users/user-info";
 import { userService } from "@/service/user";
-import { UserType } from "@/service/user/types";
-import { Mail, Phone } from "lucide-react";
 
 export default async function UsersPage() {
   const users = await userService.search();
-
-  const getFullName = (user: UserType) => {
-    return `${user.secondName ?? ""} ${user.firstName} ${
-      user.middleName ?? ""
-    }`;
-  };
 
   return (
     <section className="space-y-6">
@@ -23,30 +15,10 @@ export default async function UsersPage() {
       {users.length ? (
         users.map((user) => (
           <>
-            <div key={user.id} className="flex gap-x-4">
-              <UserAvatar userName={user.firstName} />
-              <div className="flex w-full justify-between">
-                <div>
-                  <p className="font-semibold">{getFullName(user)}</p>
-                  <p className="text-gray-500">{user.address}</p>
-                  <div className="flex gap-x-2 text-gray-500">
-                    {user.email ? (
-                      <span className="flex items-center gap-x-1 ">
-                        <Mail size={16} />
-                        <span>{user.email}</span>
-                      </span>
-                    ) : null}
-                    {user.phone ? (
-                      <span className="flex items-center gap-x-1">
-                        <Phone size={16} />
-                        <span>{user.phone}</span>
-                      </span>
-                    ) : null}
-                  </div>
-                </div>
-                <div className="flex items-center">
-                  <DeleteUserButton user={user} />
-                </div>
+            <div key={user.id} className="flex justify-between items-center">
+              <UserInfo user={user} />
+              <div className="flex">
+                <DeleteUserButton user={user} />
               </div>
             </div>
             <Separator />

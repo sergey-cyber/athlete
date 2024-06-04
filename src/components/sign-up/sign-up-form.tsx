@@ -81,10 +81,10 @@ export function SignUpForm() {
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-96">
         <FormField
           control={form.control}
-          name="firstName"
+          name="secondName"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Имя пользователя</FormLabel>
+              <FormLabel>Фамилия</FormLabel>
               <FormControl>
                 <Input placeholder="" {...field} />
               </FormControl>
@@ -94,10 +94,10 @@ export function SignUpForm() {
         />
         <FormField
           control={form.control}
-          name="secondName"
+          name="firstName"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Фамилия</FormLabel>
+              <FormLabel>Имя пользователя</FormLabel>
               <FormControl>
                 <Input placeholder="" {...field} />
               </FormControl>

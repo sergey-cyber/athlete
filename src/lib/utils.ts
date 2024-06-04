@@ -1,3 +1,4 @@
+import { UserType } from "@/service/user/types";
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
@@ -26,3 +27,7 @@ export function declineWord(
   }
   return five;
 }
+
+export const getFullName = (user: UserType) => {
+  return `${user.secondName ?? ""} ${user.firstName} ${user.middleName ?? ""}`;
+};

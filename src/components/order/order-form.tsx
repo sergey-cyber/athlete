@@ -20,6 +20,8 @@ import { Textarea } from "../ui/textarea";
 import { AmenitiesList } from "./amenities-list";
 import { RequiredLabel } from "../required-label";
 import { FileStorageType } from "@/service/fileStorage/types";
+import { UserInfo } from "../users/user-info";
+import { getFullName } from "@/lib/utils";
 
 type FormValues = Partial<OrderType>;
 
@@ -52,8 +54,8 @@ export function OrderForm({
   const [isFileChanged, setIsFileChanged] = useState(false);
 
   // Ограничение количества выбираемых элементов, так как бэк не поддерживает paging
-  const selectableClients = clients.slice(0, 15);
-  const selectableStatuses = statuses.slice(0, 15);
+  const selectableClients = clients.slice(0, 50);
+  const selectableStatuses = statuses.slice(0, 50);
 
   return (
     <div className="space-y-6">
@@ -125,13 +127,15 @@ export function OrderForm({
               value={values.client?.id.toString()}
             >
               <SelectTrigger>
-                <SelectValue />
+                <SelectValue>
+                  {values.client ? getFullName(values.client) : ""}
+                </SelectValue>
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
                   {selectableClients.map((user) => (
                     <SelectItem key={user.id} value={user.id.toString()}>
-                      {user.firstName}
+                      <UserInfo user={user} />
                     </SelectItem>
                   ))}
                 </SelectGroup>
