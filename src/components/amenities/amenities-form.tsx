@@ -38,6 +38,14 @@ export function AmenitiesForm({ values, onChange, children }: Props) {
           onChange={(e) => onChange("price", Number(e.currentTarget.value))}
         />
       </div>
+      <div>
+        <Label>Коэффициент стоимости</Label>
+        <Input
+          type="number"
+          value={values.ratio || ""}
+          onChange={(e) => onChange("ratio", Number(e.currentTarget.value))}
+        />
+      </div>
       {/*Submit button placement*/}
       {children}
     </div>

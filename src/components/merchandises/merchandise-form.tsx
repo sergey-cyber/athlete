@@ -52,6 +52,14 @@ export function MerchandiseForm({ values, onChange, children }: Props) {
           }
         />
       </div>
+      <div>
+        <Label>Коэффициент стоимости</Label>
+        <Input
+          type="number"
+          value={values.ratio || ""}
+          onChange={(e) => onChange("ratio", Number(e.currentTarget.value))}
+        />
+      </div>
       {/*Submit button placement*/}
       {children}
     </div>
