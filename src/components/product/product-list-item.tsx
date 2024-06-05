@@ -6,7 +6,6 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card";
-import { RussianRuble } from "lucide-react";
 import { PropsWithChildren } from "react";
 
 interface Props extends PropsWithChildren {

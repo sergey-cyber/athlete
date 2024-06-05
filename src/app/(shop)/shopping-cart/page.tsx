@@ -1,4 +1,4 @@
-import { CreaeteOrderForm } from "@/components/order/create-order-form";
+import { CreaeteOrderFromCart } from "@/components/order/create-order-from-cart";
 import { statusService } from "@/service/status";
 import { userService } from "@/service/user";
 
@@ -10,7 +10,7 @@ export default async function ShoppingCartPage() {
       <div className="space-y-3">
         <h1 className="text-2xl font-bold">Оформление заявки</h1>
       </div>
-      <CreaeteOrderForm clients={clients} statuses={statuses} />
+      <CreaeteOrderFromCart clients={clients} statuses={statuses} />
     </section>
   );
 }

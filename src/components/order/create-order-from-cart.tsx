@@ -1,6 +1,7 @@
 "use client";
 
 import { StatusType } from "@/service/status/types";
+import { useOrderStorage } from "../providers/order-storage-provider";
 import { Button } from "../ui/button";
 import { OrderForm } from "./order-form";
 import { UserType } from "@/service/user/types";
@@ -9,26 +10,18 @@ import { createOrder } from "@/service/order/actions";
 import { useState } from "react";
 import { CreditCard } from "lucide-react";
 import { validateOrderSchema } from "./schemas";
-import { OrderType } from "@/service/order/types";
 
 interface Props {
   statuses: StatusType[];
   clients: UserType[];
 }
 
-export function CreaeteOrderForm({ statuses, clients }: Props) {
+export function CreaeteOrderFromCart({ statuses, clients }: Props) {
+  const orderStorage = useOrderStorage();
   const { toast } = useToast();
   const [pending, setPending] = useState(false);
   const [file, setFile] = useState<File | undefined>();
-  const [order, setOrder] = useState<Partial<OrderType>>({});
-
-  const orderOnChange = <K extends keyof OrderType>(
-    key: K,
-    value: OrderType[K]
-  ) => {
-    const newOrder = { ...order, [key]: value };
-    setOrder(newOrder);
-  };
+  const order = orderStorage.getOrder();
 
   const onSubmit = async () => {
     setPending(true);
@@ -47,6 +40,7 @@ export function CreaeteOrderForm({ statuses, clients }: Props) {
       }
       formData.append("orderDTO", JSON.stringify(order));
       await createOrder(formData);
+      orderStorage.clear();
       toast({
         title: "Заявка создана успешно.",
       });
@@ -66,12 +60,12 @@ export function CreaeteOrderForm({ statuses, clients }: Props) {
       onFileChange={(file) => setFile(file)}
       statuses={statuses}
       clients={clients}
-      onChange={(key, value) => orderOnChange(key, value)}
+      onChange={(key, value) => orderStorage.set(key, value)}
       values={order}
     >
       <Button onClick={onSubmit} disabled={pending}>
         <CreditCard className="pr-2" />
-        Создать заявку
+        Оформить заказ
       </Button>
     </OrderForm>
   );
