@@ -2,10 +2,6 @@ export const toHome = () => {
   return "/";
 };
 
-export const toUsers = () => {
-  return "/users";
-};
-
 export const toAbout = () => {
   return "/about";
 };
@@ -70,4 +66,14 @@ export const toCreateOrder = () => {
 
 export const toStatuses = () => {
   return "/status";
+};
+
+// Users
+
+export const toUsers = () => {
+  return "/users";
+};
+
+export const toEditUser = (id: number) => {
+  return toUsers() + `/${id}/edit`;
 };

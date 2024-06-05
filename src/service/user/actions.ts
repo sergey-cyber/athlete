@@ -26,3 +26,14 @@ export async function removeUser(id: number) {
     throw err;
   }
 }
+
+export async function editUser(payload: Partial<UserType>) {
+  try {
+    await userService.edit(payload);
+    const redirectPath = toUsers();
+    revalidatePath(redirectPath);
+    redirect(redirectPath);
+  } catch (err) {
+    throw err;
+  }
+}

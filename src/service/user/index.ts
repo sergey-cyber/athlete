@@ -26,6 +26,14 @@ class UserService extends Requestable {
       throw new Error("Request error " + response.status ?? "");
     }
   }
+
+  public async edit(user: Partial<UserType>) {
+    return this.makeRequest<UserType>("/edit", {
+      method: "PUT",
+      body: JSON.stringify(user),
+      headers: { "Content-Type": "application/json" },
+    });
+  }
 }
 
 export const userService = new UserService("/user");
