@@ -3,9 +3,9 @@ import { DeleteOrderButton } from "@/components/order/delete-order-button";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { UserInfo } from "@/components/users/user-info";
-import { toEditOrder } from "@/lib/routes";
+import { toCreateOrder, toEditOrder } from "@/lib/routes";
 import { orderService } from "@/service/order";
-import { Pencil } from "lucide-react";
+import { Pencil, Plus } from "lucide-react";
 import Link from "next/link";
 import { ReactNode } from "react";
 
@@ -16,6 +16,12 @@ export default async function OrdersPage() {
     <section className="space-y-6">
       <div className="py-6 flex justify-between">
         <h1 className="text-2xl font-bold">Заявки</h1>
+        <Button asChild>
+          <Link href={toCreateOrder()}>
+            <Plus className="mr-2" />
+            Создать заявку
+          </Link>
+        </Button>
       </div>
       {orders.length ? (
         orders.map((order) => (

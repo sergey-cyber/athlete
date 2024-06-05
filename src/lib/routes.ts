@@ -62,6 +62,10 @@ export const toEditOrder = (id: number) => {
   return toOrders() + `/${id}/edit`;
 };
 
+export const toCreateOrder = () => {
+  return toOrders() + `/create`;
+};
+
 // Status
 
 export const toStatuses = () => {
