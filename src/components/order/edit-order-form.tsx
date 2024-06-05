@@ -17,6 +17,7 @@ interface Props {
   clients: UserType[];
   currentFile?: FileStorageType;
   initialValue: Partial<OrderType>;
+  downloadFileLink: string;
 }
 
 export function EditOrderForm({
@@ -24,6 +25,7 @@ export function EditOrderForm({
   clients,
   initialValue,
   currentFile,
+  downloadFileLink,
 }: Props) {
   const { toast } = useToast();
   const [pending, setPending] = useState(false);
@@ -69,6 +71,7 @@ export function EditOrderForm({
       clients={clients}
       onChange={(key, value) => setOrder({ ...order, [key]: value })}
       values={order}
+      downloadFileLink={downloadFileLink}
     >
       <Button onClick={onSubmit} disabled={pending}>
         <Save className="pr-2" />

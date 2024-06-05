@@ -18,6 +18,10 @@ class FileStorage extends Requestable {
       { cache: "no-store" }
     );
   }
+
+  public getDownloadFileLink(fileId: string) {
+    return this.path + "/files/" + fileId;
+  }
 }
 
 export const fileStorageService = new FileStorage("/fileStorage");

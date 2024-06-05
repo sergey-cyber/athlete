@@ -1,3 +1,5 @@
+"use client";
+
 import { OrderType } from "@/service/order/types";
 import { PropsWithChildren, ReactNode, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
@@ -29,6 +31,7 @@ import { FileStorageType } from "@/service/fileStorage/types";
 import { UserInfo } from "../users/user-info";
 import { getFullName } from "@/lib/utils";
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
+import Link from "next/link";
 
 type FormValues = Partial<OrderType>;
 
@@ -39,6 +42,7 @@ interface Props extends PropsWithChildren {
   clients: UserType[];
   onFileChange: (file: File | undefined) => void;
   currentFile?: FileStorageType;
+  downloadFileLink?: string;
 }
 
 export function OrderForm({
@@ -49,6 +53,7 @@ export function OrderForm({
   onChange,
   onFileChange,
   currentFile,
+  downloadFileLink,
 }: Props) {
   const { merchandises = [], amenities = [] } = values;
   function getTotalPrice() {
@@ -153,7 +158,8 @@ export function OrderForm({
             <Label htmlFor="file">Файл</Label>
             {currentFile && !isFileChanged ? (
               <div className="flex gap-x-2 ">
-                <File /> <span>{currentFile.title}</span>
+                <File />
+                <Link href={downloadFileLink || ""}>{currentFile.title}</Link>
               </div>
             ) : null}
             <Input
