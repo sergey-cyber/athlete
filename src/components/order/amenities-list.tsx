@@ -1,13 +1,14 @@
 "use client";
 
-import { Minus, Plus } from "lucide-react";
+import { Minus, Plus, PlusIcon } from "lucide-react";
 import { Empty } from "../empty";
 import { Button } from "../ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Price } from "./price";
 import { Separator } from "../ui/separator";
-import { ReactNode } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { AmenitiesType } from "@/service/amenities/types";
+import { AddProductModal } from "../product/add-product-modal";
 
 interface Props {
   title: ReactNode;
@@ -37,7 +38,18 @@ export function AmenitiesList({ title, amenities, onChange }: Props) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{title}</CardTitle>
+        <CardTitle className="flex justify-between">
+          {title}
+          <AddAmenitiesModal
+            disabledItem={(item) => amenities.some(({ id }) => id === item.id)}
+            trigger={
+              <Button size={"sm"} variant={"outline"}>
+                <PlusIcon size={16} className="mr-2" /> Добавить
+              </Button>
+            }
+            onItemAdd={(item) => onChange([...amenities, item])}
+          />
+        </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
         {uniqueAmenities.length ? (
@@ -97,5 +109,33 @@ export function AmenitiesList({ title, amenities, onChange }: Props) {
         </div>
       </CardContent>
     </Card>
+  );
+}
+
+function AddAmenitiesModal(props: {
+  trigger: ReactNode;
+  disabledItem: (item: AmenitiesType) => boolean;
+  onItemAdd: (item: AmenitiesType) => void;
+}) {
+  const [loading, setLoading] = useState(true);
+  const [amenities, setAmenities] = useState<AmenitiesType[]>([]);
+
+  useEffect(() => {
+    setLoading(true);
+    fetch("/api/amenities")
+      .then((res) => res.json())
+      .then((data) => setAmenities(data.amenities || []))
+      .finally(() => setLoading(false));
+  }, []);
+
+  return (
+    <AddProductModal
+      trigger={props.trigger}
+      title={"Выберите услуги"}
+      products={amenities}
+      loading={loading}
+      onItemAdd={props.onItemAdd}
+      disabledItem={props.disabledItem}
+    />
   );
 }

@@ -1,13 +1,14 @@
 "use client";
 
-import { Minus, Plus } from "lucide-react";
+import { Minus, Plus, PlusIcon } from "lucide-react";
 import { Empty } from "../empty";
 import { Button } from "../ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Price } from "./price";
 import { Separator } from "../ui/separator";
-import { ReactNode } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { MerchandiseType } from "@/service/merchandise/types";
+import { AddProductModal } from "../product/add-product-modal";
 
 interface Props {
   title: ReactNode;
@@ -37,7 +38,20 @@ export function MerchandiseList({ title, merchandises, onChange }: Props) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{title}</CardTitle>
+        <CardTitle className="flex justify-between">
+          {title}
+          <AddMerchandiseModal
+            disabledItem={(item) =>
+              merchandises.some(({ id }) => id === item.id)
+            }
+            trigger={
+              <Button size={"sm"} variant={"outline"}>
+                <PlusIcon size={16} className="mr-2" /> Добавить
+              </Button>
+            }
+            onItemAdd={(item) => onChange([...merchandises, item])}
+          />
+        </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
         {uniqueMerchandises.length ? (
@@ -99,5 +113,33 @@ export function MerchandiseList({ title, merchandises, onChange }: Props) {
         </div>
       </CardContent>
     </Card>
+  );
+}
+
+function AddMerchandiseModal(props: {
+  trigger: ReactNode;
+  disabledItem: (item: MerchandiseType) => boolean;
+  onItemAdd: (item: MerchandiseType) => void;
+}) {
+  const [loading, setLoading] = useState(true);
+  const [merchandises, setMerchandises] = useState<MerchandiseType[]>([]);
+
+  useEffect(() => {
+    setLoading(true);
+    fetch("/api/merchandise")
+      .then((res) => res.json())
+      .then((data) => setMerchandises(data.merchandises || []))
+      .finally(() => setLoading(false));
+  }, []);
+
+  return (
+    <AddProductModal
+      trigger={props.trigger}
+      title={"Выберите товары"}
+      products={merchandises}
+      loading={loading}
+      onItemAdd={props.onItemAdd}
+      disabledItem={props.disabledItem}
+    />
   );
 }

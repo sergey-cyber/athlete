@@ -3,5 +3,5 @@ export interface AmenitiesType {
   title: string;
   description: string;
   price: number;
-  ratio: number;
+  ratio?: number;
 }
