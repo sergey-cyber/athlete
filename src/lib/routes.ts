@@ -77,3 +77,9 @@ export const toUsers = () => {
 export const toEditUser = (id: number) => {
   return toUsers() + `/${id}/edit`;
 };
+
+// files
+
+export const toFiles = () => {
+  return "/files";
+};

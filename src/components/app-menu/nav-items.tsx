@@ -5,7 +5,7 @@ import {
   NavigationMenu,
   NavigationMenuItem,
   NavigationMenuLink,
-  navigationMenuTriggerStyle
+  navigationMenuTriggerStyle,
 } from "../ui/navigation-menu";
 import {
   toAbout,
@@ -14,7 +14,8 @@ import {
   toAmenitiesList,
   toUsers,
   toOrders,
-  toStatuses
+  toStatuses,
+  toFiles,
 } from "@/lib/routes";
 import {
   FileBarChart2,
@@ -23,7 +24,8 @@ import {
   Home,
   Info,
   ShoppingBag,
-  Users
+  Users,
+  FolderTree,
 } from "lucide-react";
 import { usePathname } from "next/navigation";
 
@@ -38,7 +40,8 @@ const items = [
   { href: toAmenitiesList(), label: "Услуги", icon: <HandPlatter /> },
   { href: toOrders(), label: "Заявки", icon: <Files /> },
   { href: toStatuses(), label: "Статусы", icon: <FileBarChart2 /> },
-  { href: toAbout(), label: "О компании", icon: <Info /> }
+  { href: toFiles(), label: "Файлы", icon: <FolderTree /> },
+  { href: toAbout(), label: "О компании", icon: <Info /> },
 ];
 
 export function NavItems({ onItemClick }: Props) {
