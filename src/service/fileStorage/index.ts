@@ -22,6 +22,13 @@ class FileStorage extends Requestable {
   public getDownloadFileLink(fileId: string) {
     return this.path + "/files/" + fileId;
   }
+
+  public async upload(payload: FormData) {
+    return this.makeRequest<string>("/upload", {
+      method: "POST",
+      body: payload,
+    });
+  }
 }
 
 export const fileStorageService = new FileStorage("/fileStorage");
