@@ -99,11 +99,6 @@ export default function AboutPage() {
               </div>
             </div>
           </div>
-          <Button asChild>
-            <Link href={toMerchandises()}>
-              К каталогу товаров <ArrowRight className="ml-2" />
-            </Link>
-          </Button>
         </div>
         <Image
           className="rounded-xl"
