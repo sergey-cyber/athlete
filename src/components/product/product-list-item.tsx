@@ -6,10 +6,10 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card";
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, ReactNode } from "react";
 
 interface Props extends PropsWithChildren {
-  title: string;
+  title: ReactNode;
   description: string;
   price: number;
   numberInWarehouse?: number;
@@ -25,7 +25,7 @@ export function ProductListItem({
   return (
     <Card className="relative">
       <CardHeader>
-        <CardTitle className="text-center text-xl line-clamp-2">
+        <CardTitle className="text-center text-xl line-clamp-2 h-14">
           {title}
         </CardTitle>
       </CardHeader>

@@ -24,8 +24,12 @@ export const toCreateMerchandise = () => {
   return toMerchandises() + "/create";
 };
 
+export const toMerchandise = (id: number) => {
+  return toMerchandises() + `/${id}`;
+};
+
 export const toEditMerchandise = (id: number) => {
-  return toMerchandises() + `/${id}/edit`;
+  return toMerchandise(id) + `/edit`;
 };
 
 // Amenities
@@ -38,8 +42,12 @@ export const toCreateAmenities = () => {
   return toAmenitiesList() + "/create";
 };
 
+export const toAmenities = (id: number) => {
+  return toAmenitiesList() + `/${id}`;
+};
+
 export const toEditAmenities = (id: number) => {
-  return toAmenitiesList() + `/${id}/edit`;
+  return toAmenities(id) + `/edit`;
 };
 
 // Sopping cart

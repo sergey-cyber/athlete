@@ -11,9 +11,14 @@ type Product = MerchandiseType | AmenitiesType;
 interface Props {
   product: Product;
   productType: keyof Pick<OrderType, "merchandises" | "amenities">;
+  className?: string;
 }
 
-export function AddProductToCartButton({ product, productType }: Props) {
+export function AddProductToCartButton({
+  product,
+  productType,
+  className,
+}: Props) {
   const orderStorage = useOrderStorage();
 
   function isInOrder() {
@@ -26,6 +31,7 @@ export function AddProductToCartButton({ product, productType }: Props) {
 
   return isInOrder() ? (
     <Button
+      className={className || ""}
       onClick={() =>
         orderStorage.set(
           productType,
@@ -38,6 +44,7 @@ export function AddProductToCartButton({ product, productType }: Props) {
     </Button>
   ) : (
     <Button
+      className={className || ""}
       onClick={() => orderStorage.set(productType, [...products, product])}
     >
       В корзину
