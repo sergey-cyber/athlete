@@ -1,3 +1,7 @@
+import { redirect } from "next/navigation";
+import { RequestError } from "../exeption/request-error";
+import { toSignIn } from "@/lib/routes";
+
 interface RequestParams {
   body?: any;
   method?: "POST" | "GET" | "PUT" | "DELETE";
@@ -15,7 +19,14 @@ export class Requestable {
     console.info("Start request to " + this.path + path);
     const response = await fetch(this.path + path, params);
     if (!response.ok) {
-      throw new Error("Request error " + response.status ?? "");
+      if (response.status === 401) {
+        redirect(toSignIn());
+      } else {
+        throw new RequestError({
+          message: "Request error ",
+          status: response.status,
+        });
+      }
     }
     return response.json() as T;
   }

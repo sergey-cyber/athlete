@@ -1,13 +1,22 @@
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { toMerchandises } from "@/lib/routes";
-import { ArrowRight } from "lucide-react";
+import {
+  ArrowRight,
+  Facebook,
+  Instagram,
+  Mail,
+  MapPin,
+  Phone,
+  Twitter,
+  Youtube,
+} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function AboutPage() {
   return (
-    <div className="space-y-6 pt-6">
+    <div className="space-y-4 pt-6">
       <h1 className="text-3xl font-bold  text-center">О компании</h1>
       <p className="text-justify text-gray-500">
         Мы, интернет-магазин шоурум, являемся одним из ведущих продавцов
@@ -27,7 +36,7 @@ export default function AboutPage() {
       </p>
       <Separator className="my-4" />
       <div className="flex h-min">
-        <div className="space-y-6">
+        <div className="space-y-4">
           <h2 className="text-2xl font-bold">Наша миссия</h2>
           <p className="text-gray-500 pr-6">
             Наша миссия заключается в предоставлении качественных спортивных
@@ -42,6 +51,54 @@ export default function AboutPage() {
             его получения - чтобы они получили максимальную пользу от своей
             покупки и остались довольными своим опытом работы с нами.
           </p>
+          <Separator className="my-4" />
+          <h2 className="text-2xl font-bold">Контактная информация</h2>
+          <div className="space-y-2">
+            <div>
+              <div className="flex items-center">
+                <MapPin size={20} className="mr-2" />
+                <span className="font-semibold">Наш офис</span>
+              </div>
+              <p>г. Москва, улица Строителей, дом 18, корпус 4</p>
+            </div>
+            <div>
+              <div className="flex items-center">
+                <Phone size={20} className="mr-2" />
+                <span className="font-semibold">Телефон</span>
+              </div>
+              <p>+7(999)-888-55-66</p>
+            </div>
+            <div>
+              <div className="flex items-center">
+                <Mail size={20} className="mr-2" />
+                <span className="font-semibold">Електронная почта</span>
+              </div>
+              <p>athlete@mail.ru</p>
+            </div>
+            <div>
+              <div className="flex gap-x-2">
+                <Link href={"https://www.instagram.com"} target="_blank">
+                  <Instagram />
+                </Link>
+                <Link href={"https://www.facebook.com"} target="_blank">
+                  <Facebook />
+                </Link>
+                <Link href={"https://www.youtube.com"} target="_blank">
+                  <Youtube />
+                </Link>
+                <Link href={"https://www.youtube.com"} target="_blank">
+                  <Twitter />
+                </Link>
+                <Link
+                  href={"https://www.vk.ru"}
+                  className="font-bold"
+                  target="_blank"
+                >
+                  VK
+                </Link>
+              </div>
+            </div>
+          </div>
           <Button asChild>
             <Link href={toMerchandises()}>
               К каталогу товаров <ArrowRight className="ml-2" />
