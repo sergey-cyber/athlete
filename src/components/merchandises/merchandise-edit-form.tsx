@@ -24,18 +24,19 @@ export function MerchandiseEditForm({ merchandise }: Props) {
       if (!result.success) {
         toast({
           title: result.error.issues[0].message,
-          variant: "destructive"
+          variant: "destructive",
         });
         return;
       }
       await editMerchandise(values);
       toast({
-        title: "Товар изменен успешно."
+        title: "Товар изменен успешно.",
       });
-    } catch (err) {
+    } catch (err: any) {
       toast({
         title: "Ошибка при изменении товара.",
-        variant: "destructive"
+        variant: "destructive",
+        description: err.message ?? "",
       });
     } finally {
       setPending(false);

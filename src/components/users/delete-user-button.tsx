@@ -23,12 +23,13 @@ export function DeleteUserButton({ user }: Props) {
       await removeUser(user.id);
       // TODO: удалить пользователя из заказа
       toast({
-        title: `Пользователь '${user.firstName}' удален успешно.`
+        title: `Пользователь '${user.firstName}' удален успешно.`,
       });
     } catch (err: any) {
       toast({
         title: "Ошибка при удалении пользователя.",
-        variant: "destructive"
+        variant: "destructive",
+        description: err.message ?? "",
       });
     } finally {
       setPending(false);

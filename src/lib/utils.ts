@@ -28,6 +28,8 @@ export function declineWord(
   return five;
 }
 
-export const getFullName = (user: UserType) => {
-  return `${user.secondName ?? ""} ${user.firstName} ${user.middleName ?? ""}`;
+export const getFullName = (user?: UserType) => {
+  return `${user?.secondName ?? ""} ${user?.firstName ?? ""} ${
+    user?.middleName ?? ""
+  }`;
 };

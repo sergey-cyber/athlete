@@ -22,12 +22,13 @@ export function DeleteOrderButton({ order }: Props) {
     try {
       await deleteOrder(order.id);
       toast({
-        title: `Заявка '${order.orderName}' удалена успешно.`
+        title: `Заявка '${order.orderName}' удалена успешно.`,
       });
     } catch (err: any) {
       toast({
         title: "Ошибка при удалении заявки.",
-        variant: "destructive"
+        variant: "destructive",
+        description: err.message ?? "",
       });
     } finally {
       setPending(false);

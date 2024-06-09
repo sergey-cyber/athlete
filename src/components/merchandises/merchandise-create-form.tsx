@@ -20,18 +20,19 @@ export function MerchandiseCreateForm() {
       if (!result.success) {
         toast({
           title: result.error.issues[0].message,
-          variant: "destructive"
+          variant: "destructive",
         });
         return;
       }
       await createMerchandise(values);
       toast({
-        title: "Товар создан успешно."
+        title: "Товар создан успешно.",
       });
-    } catch (err) {
+    } catch (err: any) {
       toast({
         title: "Ошибка при создании товара.",
-        variant: "destructive"
+        description: err.message ?? "",
+        variant: "destructive",
       });
     } finally {
       setPending(false);

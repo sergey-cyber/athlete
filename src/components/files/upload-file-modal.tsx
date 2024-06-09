@@ -35,7 +35,7 @@ export function UploadFileModal() {
     } catch (err: any) {
       toast({
         title: "Ошибка при загрузке заявки.",
-        description: err?.message,
+        description: err.message ?? "",
         variant: "destructive",
       });
     } finally {

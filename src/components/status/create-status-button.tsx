@@ -18,13 +18,14 @@ export function CreateStatusButton() {
     try {
       await createStatus(values);
       toast({
-        title: "Статус создан успешно."
+        title: "Статус создан успешно.",
       });
       setOpenForm(false);
-    } catch (e) {
+    } catch (err: any) {
       toast({
         title: "Ошибка при создании статуса.",
-        variant: "destructive"
+        variant: "destructive",
+        description: err.message ?? "",
       });
     } finally {
       setPending(false);

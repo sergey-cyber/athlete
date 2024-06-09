@@ -31,7 +31,7 @@ import { FileStorageType } from "@/service/fileStorage/types";
 import { UserInfo } from "../users/user-info";
 import { getFullName } from "@/lib/utils";
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
-import Link from "next/link";
+import { DownloadFileButton } from "../files/download-file-button";
 
 type FormValues = Partial<OrderType>;
 
@@ -42,7 +42,6 @@ interface Props extends PropsWithChildren {
   clients: UserType[];
   onFileChange: (file: File | undefined) => void;
   currentFile?: FileStorageType;
-  downloadFileLink?: string;
 }
 
 export function OrderForm({
@@ -53,7 +52,6 @@ export function OrderForm({
   onChange,
   onFileChange,
   currentFile,
-  downloadFileLink,
 }: Props) {
   const { merchandises = [], amenities = [] } = values;
   function getTotalPrice() {
@@ -62,7 +60,6 @@ export function OrderForm({
       0
     );
   }
-
   const [isFileChanged, setIsFileChanged] = useState(false);
 
   // Ограничение количества выбираемых элементов, так как бэк не поддерживает paging
@@ -131,16 +128,22 @@ export function OrderForm({
             <RequiredLabel>Клиент</RequiredLabel>
             <Select
               onValueChange={(v) =>
-                onChange(
-                  "client",
-                  selectableClients.find(({ id }) => id === Number(v))!
-                )
+                onChange("client", {
+                  id: Number(v),
+                  userDetails: selectableClients.find(
+                    ({ id }) => id === Number(v)
+                  )!,
+                })
               }
               value={values.client?.id.toString()}
             >
               <SelectTrigger>
                 <SelectValue>
-                  {values.client ? getFullName(values.client) : ""}
+                  {values.client
+                    ? getFullName(
+                        values.client.userDetails as UserType | undefined
+                      )
+                    : ""}
                 </SelectValue>
               </SelectTrigger>
               <SelectContent>
@@ -159,7 +162,8 @@ export function OrderForm({
             {currentFile && !isFileChanged ? (
               <div className="flex gap-x-2 ">
                 <File />
-                <Link href={downloadFileLink || ""}>{currentFile.title}</Link>
+                <div>{currentFile.title}</div>
+                <DownloadFileButton file={currentFile} />
               </div>
             ) : null}
             <Input

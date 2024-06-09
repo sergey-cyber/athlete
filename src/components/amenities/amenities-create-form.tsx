@@ -28,11 +28,11 @@ export function AmenitiesCreateForm() {
       toast({
         title: "Услуга создана успешно.",
       });
-    } catch (err) {
-      console.error(err);
+    } catch (err: any) {
       toast({
         title: "Ошибка при создании услуги.",
         variant: "destructive",
+        description: err.message ?? "",
       });
     } finally {
       setPending(false);

@@ -23,13 +23,14 @@ export function EditStatusButton({ status }: Props) {
     try {
       await editStatus({ ...values, id: status.id });
       toast({
-        title: "Статус изменен успешно."
+        title: "Статус изменен успешно.",
       });
       setOpenForm(false);
-    } catch (e) {
+    } catch (err: any) {
       toast({
         title: "Ошибка при изменении статуса.",
-        variant: "destructive"
+        variant: "destructive",
+        description: err.message ?? "",
       });
     } finally {
       setPending(false);

@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
-import { RequestError } from "../exeption/request-error";
 import { toSignIn } from "@/lib/routes";
+import { getAuthCockies } from "@/lib/auth";
 
 interface RequestParams {
   body?: any;
@@ -17,17 +17,26 @@ export class Requestable {
 
   protected async makeRequest<T>(path: string, params?: RequestParams) {
     console.info("Start request to " + this.path + path);
-    const response = await fetch(this.path + path, params);
+
+    const response = await fetch(this.path + path, {
+      ...params,
+      headers: { ...params?.headers, ...getAuthCockies() },
+    });
+
+    this.checkResponseForErrors(response);
+
+    return response.json() as T;
+  }
+
+  public checkResponseForErrors(response: Response) {
     if (!response.ok) {
       if (response.status === 401) {
         redirect(toSignIn());
+      } else if (response.status === 403) {
+        throw new Error("Недостаточно прав.");
       } else {
-        throw new RequestError({
-          message: "Request error ",
-          status: response.status,
-        });
+        throw new Error("Request error " + response.status);
       }
     }
-    return response.json() as T;
   }
 }

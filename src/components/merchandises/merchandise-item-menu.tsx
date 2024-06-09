@@ -27,12 +27,13 @@ export function MerchandiseItemMenu({ merchandise }: Props) {
       await removeMerchandise(merchandise.id);
       orderStorage.deleteMerchandise(merchandise.id);
       toast({
-        title: `Товар '${merchandise.title}' удален успешно.`
+        title: `Товар '${merchandise.title}' удален успешно.`,
       });
     } catch (err: any) {
       toast({
         title: "Ошибка при удалении товара.",
-        variant: "destructive"
+        variant: "destructive",
+        description: err.message ?? "",
       });
     } finally {
       setPending(false);

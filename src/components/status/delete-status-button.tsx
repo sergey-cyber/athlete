@@ -21,12 +21,13 @@ export function DeleteStatusButton({ id }: Props) {
     try {
       await removeStatus(id);
       toast({
-        title: `Статус удален успешно.`
+        title: `Статус удален успешно.`,
       });
     } catch (err: any) {
       toast({
         title: "Ошибка при удалении статуса.",
-        variant: "destructive"
+        variant: "destructive",
+        description: err.message ?? "",
       });
     } finally {
       setPending(false);

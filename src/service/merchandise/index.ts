@@ -1,3 +1,4 @@
+import { getAuthCockies } from "@/lib/auth";
 import { Requestable } from "../requestable";
 import { MerchandiseType } from "./types";
 
@@ -25,10 +26,9 @@ class MerchandiseService extends Requestable {
   public async remove(id: number) {
     const response = await fetch(`${this.path}/delete?id=${id}`, {
       method: "DELETE",
+      headers: getAuthCockies(),
     });
-    if (!response.ok) {
-      throw new Error("Request error " + response.status ?? "");
-    }
+    this.checkResponseForErrors(response);
   }
 
   public async search() {

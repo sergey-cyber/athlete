@@ -27,12 +27,13 @@ export function AmenitiesItemMenu({ amenities }: Props) {
       await removeAmenities(amenities.id);
       orderStorage.deleteAmenities(amenities.id);
       toast({
-        title: `Услуга '${amenities.title}' удалена успешно.`
+        title: `Услуга '${amenities.title}' удалена успешно.`,
       });
     } catch (err: any) {
       toast({
         title: "Ошибка при удалении услуги.",
-        variant: "destructive"
+        variant: "destructive",
+        description: err.message ?? "",
       });
     } finally {
       setPending(false);

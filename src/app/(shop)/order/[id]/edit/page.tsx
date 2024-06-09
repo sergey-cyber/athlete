@@ -21,7 +21,6 @@ export default async function EditOrderPage({ params }: Props) {
     return null;
   }
   const file = await fileStorageService.getFileByOrderId(orderToEdit.id);
-  const downloadFileLink = fileStorageService.getDownloadFileLink(file.id);
 
   return (
     <section className="py-6 space-y-6">
@@ -29,11 +28,10 @@ export default async function EditOrderPage({ params }: Props) {
         <h1 className="text-2xl font-bold">Редактирование заявки</h1>
       </div>
       <EditOrderForm
-        currentFile={file}
+        currentFile={file.id ? file : undefined}
         initialValue={orderToEdit}
         clients={clients}
         statuses={statuses}
-        downloadFileLink={downloadFileLink}
       />
     </section>
   );

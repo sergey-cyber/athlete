@@ -32,10 +32,11 @@ export function AmenitiesEditForm({ amenities }: Props) {
       toast({
         title: "Услуга изменена успешно.",
       });
-    } catch (err) {
+    } catch (err: any) {
       toast({
         title: "Ошибка при изменении услуги.",
         variant: "destructive",
+        description: err.message ?? "",
       });
     } finally {
       setPending(false);

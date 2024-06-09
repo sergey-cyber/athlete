@@ -47,7 +47,7 @@ export function CreaeteOrderFromCart({ statuses, clients }: Props) {
     } catch (err: any) {
       toast({
         title: "Ошибка при оформлении заявки.",
-        description: err?.message,
+        description: err.message ?? "",
         variant: "destructive",
       });
     } finally {
