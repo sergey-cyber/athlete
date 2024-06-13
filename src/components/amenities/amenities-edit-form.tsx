@@ -28,14 +28,17 @@ export function AmenitiesEditForm({ amenities }: Props) {
         });
         return;
       }
-      await editAmenities(values);
+      const res = await editAmenities(values);
+      if (res?.error) {
+        toast({
+          title: "Ошибка при изменении услуги.",
+          variant: "destructive",
+          description: res.error.message,
+        });
+        return;
+      }
       toast({
         title: "Услуга изменена успешно.",
-      });
-    } catch (err) {
-      toast({
-        title: "Ошибка при изменении услуги.",
-        variant: "destructive",
       });
     } finally {
       setPending(false);

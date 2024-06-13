@@ -19,14 +19,17 @@ export function EditUserForm({ user }: Props) {
   async function onSubmit(values: z.infer<typeof userFormSchema>) {
     setPending(true);
     try {
-      await editUser({ ...values, id: user.id });
+      const res = await editUser({ ...user, ...values });
+      if (res?.error) {
+        toast({
+          title: "Ошибка при сохранении пользователя.",
+          variant: "destructive",
+          description: res.error.message,
+        });
+        return;
+      }
       toast({
         title: "Пользователь сохранён успешно.",
-      });
-    } catch (err) {
-      toast({
-        title: "Ошибка при сохранении пользователя.",
-        variant: "destructive",
       });
     } finally {
       setPending(false);

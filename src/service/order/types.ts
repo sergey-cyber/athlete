@@ -1,32 +1,32 @@
 import { AmenitiesType } from "../amenities/types";
 import { MerchandiseType } from "../merchandise/types";
 import { StatusType } from "../status/types";
-import { UserType } from "../user/types";
+import { UserDetails, UserType } from "../user/types";
 
 export type OrderType = {
   id: number;
 
-  orderName: string;
+  orderName?: string;
 
-  priority: number;
+  priority?: number;
 
-  status: StatusType;
+  status?: StatusType;
 
-  description: string;
+  description?: string;
 
-  amenities: AmenitiesType[];
+  amenities?: AmenitiesType[];
 
-  merchandises: MerchandiseType[];
+  merchandises?: MerchandiseType[];
 
-  comments: string;
+  comments?: string;
 
-  client: UserType;
+  client?: { id: number; role?: string; userDetails?: UserDetails };
 
-  users: UserType;
+  users?: UserType;
 
-  totalNumberOfMerchandise: number;
+  totalNumberOfMerchandise?: number;
 
-  totalNumberOfAmenities: number;
+  totalNumberOfAmenities?: number;
 
-  totalCostOfOrder: number;
+  totalCostOfOrder?: number;
 };

@@ -20,14 +20,17 @@ export function DeleteOrderButton({ order }: Props) {
   const onDelete = async () => {
     setPending(true);
     try {
-      await deleteOrder(order.id);
+      const res = await deleteOrder(order.id);
+      if (res?.error) {
+        toast({
+          title: "Ошибка при удалении заявки.",
+          variant: "destructive",
+          description: res.error.message,
+        });
+        return;
+      }
       toast({
-        title: `Заявка '${order.orderName}' удалена успешно.`
-      });
-    } catch (err: any) {
-      toast({
-        title: "Ошибка при удалении заявки.",
-        variant: "destructive"
+        title: `Заявка '${order.orderName}' удалена успешно.`,
       });
     } finally {
       setPending(false);

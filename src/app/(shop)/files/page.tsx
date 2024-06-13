@@ -3,6 +3,7 @@ import { Empty } from "@/components/empty";
 import { FileJson } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { UploadFileModal } from "@/components/files/upload-file-modal";
+import { DownloadFileButton } from "@/components/files/download-file-button";
 
 export default async function FilesPage() {
   const files = await fileStorageService.search();
@@ -16,8 +17,11 @@ export default async function FilesPage() {
       {files.length ? (
         <div className="grid grid-cols-4 gap-4 lg:grid-cols-5 xl:grid-cols-6">
           {files.map((file) => (
-            <Card>
+            <Card key={file.id}>
               <CardContent className="py-4 flex flex-col gap-y-2 items-center">
+                <div className="w-full flex justify-end">
+                  <DownloadFileButton file={file} />
+                </div>
                 <FileJson strokeWidth={1} size={48} className="h-12" />
                 {file.title}
               </CardContent>

@@ -41,7 +41,7 @@ export function AddProductModal(props: Props) {
             <SheetDescription className="p-6 space-y-6">
               {props.products.length ? (
                 props.products.map((item) => (
-                  <ProductListItem {...item}>
+                  <ProductListItem key={item.id} {...item}>
                     <Button
                       onClick={() => props.onItemAdd(item)}
                       disabled={props.disabledItem(item)}

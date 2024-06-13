@@ -38,8 +38,7 @@ export function UserForm({
       email: "",
       phone: 0,
       address: "",
-      // password: "",
-      // confirmPassword: ""
+      role: "",
     },
   });
 
@@ -124,32 +123,19 @@ export function UserForm({
             </FormItem>
           )}
         />
-        {/* <FormField
+        <FormField
           control={form.control}
-          name="password"
+          name="role"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Пароль</FormLabel>
+              <FormLabel>Роль</FormLabel>
               <FormControl>
-                <Input type="password" placeholder="" {...field} />
+                <Input placeholder="" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name="confirmPassword"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Подтвердите пароль</FormLabel>
-              <FormControl>
-                <Input type="password" placeholder="" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        /> */}
         <Button disabled={loading} className="w-full mt-6" type="submit">
           {submitButtonCaption}
         </Button>

@@ -1,3 +1,4 @@
+import { RequestExeption } from "@/service/exeption/request-exeption";
 import { UserType } from "@/service/user/types";
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
@@ -28,6 +29,34 @@ export function declineWord(
   return five;
 }
 
-export const getFullName = (user: UserType) => {
-  return `${user.secondName ?? ""} ${user.firstName} ${user.middleName ?? ""}`;
+export const getFullName = (user?: UserType) => {
+  return `${user?.secondName ?? ""} ${user?.firstName ?? ""} ${
+    user?.middleName ?? ""
+  }`;
 };
+
+export function getHttpStatusMessage(statusCode?: number) {
+  switch (statusCode) {
+    case 400:
+      return "Клиентская ошибка.";
+    case 403:
+      return "Недостаточно прав.";
+    case 404:
+      return "404, не найдено.";
+    case 500:
+      return "Серверная ошибка.";
+    case 503:
+      return "Сервис недоступен.";
+    default:
+      return "Что-то пошло не так.";
+  }
+}
+
+export function handleActionError(err: unknown) {
+  if (err instanceof RequestExeption) {
+    return {
+      error: { status: err.status, message: getHttpStatusMessage(err.status) },
+    };
+  }
+  return { error: { status: undefined, message: "Что-то пошло не так" } };
+}

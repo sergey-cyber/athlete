@@ -4,11 +4,14 @@ import { getFullName } from "@/lib/utils";
 import { Mail, Phone } from "lucide-react";
 
 interface Props {
-  user: UserType;
+  user?: UserType;
   hiddenAvatar?: boolean;
 }
 
 export function UserInfo({ user, hiddenAvatar }: Props) {
+  if (!user) {
+    return null;
+  }
   return (
     <div key={user.id} className="flex gap-x-4 items-center">
       {!hiddenAvatar ? <UserAvatar userName={user.firstName} /> : null}

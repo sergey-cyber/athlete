@@ -5,6 +5,7 @@ import { Separator } from "@/components/ui/separator";
 import { UserInfo } from "@/components/users/user-info";
 import { toCreateOrder, toEditOrder } from "@/lib/routes";
 import { orderService } from "@/service/order";
+import { UserType } from "@/service/user/types";
 import { Pencil, Plus } from "lucide-react";
 import Link from "next/link";
 import { ReactNode } from "react";
@@ -31,10 +32,15 @@ export default async function OrdersPage() {
                 <div>
                   <p className="font-bold text-lg">{order.orderName}</p>
                   <p className="text-gray-500">{order.description}</p>
-                  <OrderProp label="Статус" value={order.status.status} />
+                  <OrderProp label="Статус" value={order.status?.status} />
                   <OrderProp
                     label="Клиент"
-                    value={<UserInfo hiddenAvatar user={order.client} />}
+                    value={
+                      <UserInfo
+                        hiddenAvatar
+                        user={order.client?.userDetails as UserType | undefined}
+                      />
+                    }
                   />
                   <OrderProp
                     label="Количество товаров"
@@ -73,7 +79,7 @@ export default async function OrdersPage() {
   );
 }
 
-function OrderProp(props: { label: string; value: ReactNode }) {
+function OrderProp(props: { label: string; value?: ReactNode }) {
   return props.value ? (
     <div className="flex gap-x-2 text-gray-500">
       <span className="flex gap-x-2 ">

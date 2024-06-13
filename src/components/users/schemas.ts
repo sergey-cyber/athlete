@@ -9,17 +9,5 @@ export const userFormSchema = z.object({
   email: z.string(),
   phone: z.coerce.number(),
   address: z.string(),
-  /* password: z.string().min(6, {
-        message: "Минимум 6 символов"
-      }),
-      confirmPassword: z.string() */
+  role: z.string(),
 });
-/* .superRefine(({ confirmPassword, password }, ctx) => {
-      if (confirmPassword !== password) {
-        ctx.addIssue({
-          code: "custom",
-          message: "Пароли не совпадают",
-          path: ["confirmPassword"]
-        });
-      }
-    }); */

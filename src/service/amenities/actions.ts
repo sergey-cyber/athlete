@@ -5,34 +5,42 @@ import { redirect } from "next/navigation";
 import { AmenitiesType } from "./types";
 import { amenitiesService } from ".";
 import { toAmenitiesList } from "@/lib/routes";
+import { ActionResult } from "@/lib/common-types";
+import { handleActionError } from "@/lib/utils";
 
-export async function createAmenities(payload: Partial<AmenitiesType>) {
+export async function createAmenities(
+  payload: Partial<AmenitiesType>
+): Promise<ActionResult<undefined>> {
   try {
     await amenitiesService.create(payload);
-    const redirectPath = toAmenitiesList();
-    revalidatePath(redirectPath);
-    redirect(redirectPath);
   } catch (err) {
-    throw err;
+    return handleActionError(err);
   }
+  const redirectPath = toAmenitiesList();
+  revalidatePath(redirectPath);
+  redirect(redirectPath);
 }
 
-export async function editAmenities(payload: Partial<AmenitiesType>) {
+export async function editAmenities(
+  payload: Partial<AmenitiesType>
+): Promise<ActionResult<undefined>> {
   try {
     await amenitiesService.edit(payload);
-    const redirectPath = toAmenitiesList();
-    revalidatePath(redirectPath);
-    redirect(redirectPath);
   } catch (err) {
-    throw err;
+    return handleActionError(err);
   }
+  const redirectPath = toAmenitiesList();
+  revalidatePath(redirectPath);
+  redirect(redirectPath);
 }
 
-export async function removeAmenities(id: number) {
+export async function removeAmenities(
+  id: number
+): Promise<ActionResult<undefined>> {
   try {
     await amenitiesService.remove(id);
-    revalidatePath(toAmenitiesList());
   } catch (err) {
-    throw err;
+    return handleActionError(err);
   }
+  revalidatePath(toAmenitiesList());
 }

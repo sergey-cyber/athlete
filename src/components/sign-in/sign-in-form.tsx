@@ -9,33 +9,53 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage
+  FormMessage,
 } from "../ui/form";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
+import { useToast } from "../ui/use-toast";
+import { signIn } from "@/service/auth/actions";
+import { useState } from "react";
 
 const formSchema = z.object({
-  username: z.string().min(1, {
-    message: "Обязательное поле"
+  login: z.string().min(1, {
+    message: "Обязательное поле",
   }),
   password: z.string().min(6, {
-    message: "Минимум 6 символов"
-  })
+    message: "Минимум 6 символов",
+  }),
 });
 
 export function SignInForm() {
+  const [pending, setPending] = useState(false);
+  const { toast } = useToast();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
-      password: ""
-    }
+      login: "",
+      password: "",
+    },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    const { login, password } = values;
+    setPending(true);
+    try {
+      const res = await signIn(login, password);
+      if (res?.error) {
+        toast({
+          title: "Ошибка входа.",
+          variant: "destructive",
+          description:
+            res.error.status == 401
+              ? "Неправильный логин или пароль."
+              : res.error.message,
+        });
+        return;
+      }
+    } finally {
+      setPending(false);
+    }
   }
 
   return (
@@ -43,10 +63,10 @@ export function SignInForm() {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 w-96">
         <FormField
           control={form.control}
-          name="username"
+          name="login"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Имя пользователя</FormLabel>
+              <FormLabel>Логин</FormLabel>
               <FormControl>
                 <Input placeholder="" {...field} />
               </FormControl>
@@ -67,7 +87,7 @@ export function SignInForm() {
             </FormItem>
           )}
         />
-        <Button className="w-full" type="submit">
+        <Button disabled={pending} className="w-full" type="submit">
           Войти
         </Button>
       </form>

@@ -46,15 +46,17 @@ export function CreaeteOrderForm({ statuses, clients }: Props) {
         formData.append("file", file);
       }
       formData.append("orderDTO", JSON.stringify(order));
-      await createOrder(formData);
+      const res = await createOrder(formData);
+      if (res?.error) {
+        toast({
+          title: "Ошибка при оформлении заявки.",
+          description: res.error.message,
+          variant: "destructive",
+        });
+        return;
+      }
       toast({
         title: "Заявка создана успешно.",
-      });
-    } catch (err: any) {
-      toast({
-        title: "Ошибка при оформлении заявки.",
-        description: err?.message,
-        variant: "destructive",
       });
     } finally {
       setPending(false);

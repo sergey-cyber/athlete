@@ -19,14 +19,17 @@ export function DeleteStatusButton({ id }: Props) {
   const onDelete = async () => {
     setPending(true);
     try {
-      await removeStatus(id);
+      const res = await removeStatus(id);
+      if (res?.error) {
+        toast({
+          title: "Ошибка при удалении статуса.",
+          variant: "destructive",
+          description: res.error.message,
+        });
+        return;
+      }
       toast({
-        title: `Статус удален успешно.`
-      });
-    } catch (err: any) {
-      toast({
-        title: "Ошибка при удалении статуса.",
-        variant: "destructive"
+        title: `Статус удален успешно.`,
       });
     } finally {
       setPending(false);

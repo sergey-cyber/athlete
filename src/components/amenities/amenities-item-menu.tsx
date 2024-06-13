@@ -24,15 +24,18 @@ export function AmenitiesItemMenu({ amenities }: Props) {
   const onDelete = async () => {
     setPending(true);
     try {
-      await removeAmenities(amenities.id);
+      const res = await removeAmenities(amenities.id);
+      if (res?.error) {
+        toast({
+          title: "Ошибка при удалении услуги.",
+          variant: "destructive",
+          description: res.error.message,
+        });
+        return;
+      }
       orderStorage.deleteAmenities(amenities.id);
       toast({
-        title: `Услуга '${amenities.title}' удалена успешно.`
-      });
-    } catch (err: any) {
-      toast({
-        title: "Ошибка при удалении услуги.",
-        variant: "destructive"
+        title: `Услуга '${amenities.title}' удалена успешно.`,
       });
     } finally {
       setPending(false);

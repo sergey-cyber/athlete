@@ -20,15 +20,18 @@ export function DeleteUserButton({ user }: Props) {
   const onDelete = async () => {
     setPending(true);
     try {
-      await removeUser(user.id);
+      const res = await removeUser(user.id);
+      if (res?.error) {
+        toast({
+          title: "Ошибка при удалении пользователя.",
+          variant: "destructive",
+          description: res.error.message,
+        });
+        return;
+      }
       // TODO: удалить пользователя из заказа
       toast({
-        title: `Пользователь '${user.firstName}' удален успешно.`
-      });
-    } catch (err: any) {
-      toast({
-        title: "Ошибка при удалении пользователя.",
-        variant: "destructive"
+        title: `Пользователь '${user.firstName}' удален успешно.`,
       });
     } finally {
       setPending(false);

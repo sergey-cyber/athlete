@@ -17,7 +17,6 @@ interface Props {
   clients: UserType[];
   currentFile?: FileStorageType;
   initialValue: Partial<OrderType>;
-  downloadFileLink: string;
 }
 
 export function EditOrderForm({
@@ -25,7 +24,6 @@ export function EditOrderForm({
   clients,
   initialValue,
   currentFile,
-  downloadFileLink,
 }: Props) {
   const { toast } = useToast();
   const [pending, setPending] = useState(false);
@@ -48,15 +46,17 @@ export function EditOrderForm({
         formData.append("file", file);
       }
       formData.append("orderDTO", JSON.stringify(order));
-      await editOrder(formData);
+      const res = await editOrder(formData);
+      if (res?.error) {
+        toast({
+          title: "Ошибка при изменении заявки.",
+          description: res.error.message,
+          variant: "destructive",
+        });
+        return;
+      }
       toast({
         title: "Заявка изменена успешно.",
-      });
-    } catch (err: any) {
-      toast({
-        title: "Ошибка при изменении заявки.",
-        description: err?.message,
-        variant: "destructive",
       });
     } finally {
       setPending(false);
@@ -71,7 +71,6 @@ export function EditOrderForm({
       clients={clients}
       onChange={(key, value) => setOrder({ ...order, [key]: value })}
       values={order}
-      downloadFileLink={downloadFileLink}
     >
       <Button onClick={onSubmit} disabled={pending}>
         <Save className="pr-2" />

@@ -1,6 +1,8 @@
 import { redirect } from "next/navigation";
-import { RequestError } from "../exeption/request-error";
 import { toSignIn } from "@/lib/routes";
+import { getAuthCockies } from "@/lib/auth";
+import { RequestExeption } from "../exeption/request-exeption";
+import { getHttpStatusMessage } from "@/lib/utils";
 
 interface RequestParams {
   body?: any;
@@ -17,17 +19,27 @@ export class Requestable {
 
   protected async makeRequest<T>(path: string, params?: RequestParams) {
     console.info("Start request to " + this.path + path);
-    const response = await fetch(this.path + path, params);
+
+    const response = await fetch(this.path + path, {
+      ...params,
+      headers: { ...params?.headers, ...getAuthCockies() },
+    });
+
+    this.checkResponseForErrors(response);
+
+    return response.json() as T;
+  }
+
+  public checkResponseForErrors(response: Response) {
     if (!response.ok) {
       if (response.status === 401) {
         redirect(toSignIn());
       } else {
-        throw new RequestError({
-          message: "Request error ",
-          status: response.status,
-        });
+        throw new RequestExeption(
+          response.status,
+          getHttpStatusMessage(response.status)
+        );
       }
     }
-    return response.json() as T;
   }
 }

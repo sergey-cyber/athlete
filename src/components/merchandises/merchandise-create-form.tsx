@@ -20,18 +20,21 @@ export function MerchandiseCreateForm() {
       if (!result.success) {
         toast({
           title: result.error.issues[0].message,
-          variant: "destructive"
+          variant: "destructive",
         });
         return;
       }
-      await createMerchandise(values);
+      const res = await createMerchandise(values);
+      if (res?.error) {
+        toast({
+          title: "Ошибка при создании товара.",
+          description: res.error.message,
+          variant: "destructive",
+        });
+        return;
+      }
       toast({
-        title: "Товар создан успешно."
-      });
-    } catch (err) {
-      toast({
-        title: "Ошибка при создании товара.",
-        variant: "destructive"
+        title: "Товар создан успешно.",
       });
     } finally {
       setPending(false);

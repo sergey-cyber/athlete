@@ -1,3 +1,4 @@
+import { getAuthCockies } from "@/lib/auth";
 import { Requestable } from "../requestable";
 import { FileStorageType } from "./types";
 
@@ -19,15 +20,25 @@ class FileStorage extends Requestable {
     );
   }
 
-  public getDownloadFileLink(fileId: string) {
+  private getDownloadFileLink(fileId: string) {
     return this.path + "/files/" + fileId;
   }
 
+  public async downloadFile(fileId: string) {
+    const response = await fetch(this.getDownloadFileLink(fileId), {
+      headers: getAuthCockies(),
+    });
+    this.checkResponseForErrors(response);
+    return response;
+  }
+
   public async upload(payload: FormData) {
-    return this.makeRequest<string>("/upload", {
+    const response = await fetch(this.path + "/upload", {
       method: "POST",
       body: payload,
+      headers: getAuthCockies(),
     });
+    this.checkResponseForErrors(response);
   }
 }
 

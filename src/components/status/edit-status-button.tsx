@@ -21,16 +21,19 @@ export function EditStatusButton({ status }: Props) {
   const onSubmit = async () => {
     setPending(true);
     try {
-      await editStatus({ ...values, id: status.id });
+      const res = await editStatus({ ...values, id: status.id });
+      if (res?.error) {
+        toast({
+          title: "Ошибка при изменении статуса.",
+          variant: "destructive",
+          description: res.error.message,
+        });
+        return;
+      }
       toast({
-        title: "Статус изменен успешно."
+        title: "Статус изменен успешно.",
       });
       setOpenForm(false);
-    } catch (e) {
-      toast({
-        title: "Ошибка при изменении статуса.",
-        variant: "destructive"
-      });
     } finally {
       setPending(false);
     }
