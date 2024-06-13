@@ -46,15 +46,17 @@ export function EditOrderForm({
         formData.append("file", file);
       }
       formData.append("orderDTO", JSON.stringify(order));
-      await editOrder(formData);
+      const res = await editOrder(formData);
+      if (res?.error) {
+        toast({
+          title: "Ошибка при изменении заявки.",
+          description: res.error.message,
+          variant: "destructive",
+        });
+        return;
+      }
       toast({
         title: "Заявка изменена успешно.",
-      });
-    } catch (err: any) {
-      toast({
-        title: "Ошибка при изменении заявки.",
-        description: err.message ?? "",
-        variant: "destructive",
       });
     } finally {
       setPending(false);

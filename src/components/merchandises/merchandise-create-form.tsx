@@ -24,15 +24,17 @@ export function MerchandiseCreateForm() {
         });
         return;
       }
-      await createMerchandise(values);
+      const res = await createMerchandise(values);
+      if (res?.error) {
+        toast({
+          title: "Ошибка при создании товара.",
+          description: res.error.message,
+          variant: "destructive",
+        });
+        return;
+      }
       toast({
         title: "Товар создан успешно.",
-      });
-    } catch (err: any) {
-      toast({
-        title: "Ошибка при создании товара.",
-        description: err.message ?? "",
-        variant: "destructive",
       });
     } finally {
       setPending(false);

@@ -1,6 +1,8 @@
 import { redirect } from "next/navigation";
 import { toSignIn } from "@/lib/routes";
 import { getAuthCockies } from "@/lib/auth";
+import { RequestExeption } from "../exeption/request-exeption";
+import { getHttpStatusMessage } from "@/lib/utils";
 
 interface RequestParams {
   body?: any;
@@ -32,10 +34,11 @@ export class Requestable {
     if (!response.ok) {
       if (response.status === 401) {
         redirect(toSignIn());
-      } else if (response.status === 403) {
-        throw new Error("Недостаточно прав.");
       } else {
-        throw new Error("Request error " + response.status);
+        throw new RequestExeption(
+          response.status,
+          getHttpStatusMessage(response.status)
+        );
       }
     }
   }

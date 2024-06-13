@@ -1,6 +1,7 @@
 import { cookies } from "next/headers";
 import { Requestable } from "../requestable";
-import { UserType } from "../user/types";
+import { RequestExeption } from "../exeption/request-exeption";
+import { getHttpStatusMessage } from "@/lib/utils";
 
 class AuthService extends Requestable {
   constructor(path: string) {
@@ -17,7 +18,10 @@ class AuthService extends Requestable {
       cookieStore.set("login", login);
       cookieStore.set("password", password);
     } else {
-      throw new Error("Ошибка входа");
+      throw new RequestExeption(
+        response.status,
+        getHttpStatusMessage(response.status)
+      );
     }
   }
 }

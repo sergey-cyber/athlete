@@ -7,6 +7,7 @@ import { Download } from "lucide-react";
 import { useToast } from "../ui/use-toast";
 import { redirect } from "next/navigation";
 import { toSignIn } from "@/lib/routes";
+import { getHttpStatusMessage } from "@/lib/utils";
 
 interface Props extends PropsWithChildren {
   file: FileStorageType;
@@ -23,10 +24,13 @@ export function DownloadFileButton({ file }: Props) {
       if (!response.ok) {
         if (response.status === 401) {
           redirect(toSignIn());
-        } else if (response.status === 403) {
-          throw new Error("Недостаточно прав.");
         } else {
-          throw new Error("Request error " + response.status);
+          toast({
+            title: "Ошибка при скачивании файла.",
+            description: getHttpStatusMessage(response.status),
+            variant: "destructive",
+          });
+          return;
         }
       }
       const blob = await response.blob();
@@ -38,11 +42,7 @@ export function DownloadFileButton({ file }: Props) {
       link.click();
       document.body.removeChild(link);
     } catch (err: any) {
-      toast({
-        title: "Ошибка при скачивании файла.",
-        description: err?.message ?? "",
-        variant: "destructive",
-      });
+      console.log(err);
     } finally {
       setIsDownloading(false);
     }

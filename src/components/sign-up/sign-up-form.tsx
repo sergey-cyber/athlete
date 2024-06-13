@@ -25,15 +25,17 @@ export function SignUpForm() {
   async function onSubmit(values: z.infer<typeof signUpSchema>) {
     setPending(true);
     try {
-      await createUser({ ...values, role: "user" });
+      const res = await createUser({ ...values, role: "user" });
+      if (res?.error) {
+        toast({
+          title: "Ошибка при регистрации пользователя.",
+          variant: "destructive",
+          description: res.error.message,
+        });
+        return;
+      }
       toast({
         title: "Пользователь успешно зарегистрирован.",
-      });
-    } catch (err: any) {
-      toast({
-        title: "Ошибка при регистрации пользователя.",
-        variant: "destructive",
-        description: err.message ?? "",
       });
     } finally {
       setPending(false);

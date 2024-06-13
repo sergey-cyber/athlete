@@ -16,17 +16,19 @@ export function CreateStatusButton() {
   const onSubmit = async () => {
     setPending(true);
     try {
-      await createStatus(values);
+      const res = await createStatus(values);
+      if (res?.error) {
+        toast({
+          title: "Ошибка при создании статуса.",
+          variant: "destructive",
+          description: res.error.message,
+        });
+        return;
+      }
       toast({
         title: "Статус создан успешно.",
       });
       setOpenForm(false);
-    } catch (err: any) {
-      toast({
-        title: "Ошибка при создании статуса.",
-        variant: "destructive",
-        description: err.message ?? "",
-      });
     } finally {
       setPending(false);
     }

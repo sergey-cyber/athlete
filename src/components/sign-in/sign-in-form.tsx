@@ -41,13 +41,18 @@ export function SignInForm() {
     const { login, password } = values;
     setPending(true);
     try {
-      await signIn(login, password);
-    } catch (e: any) {
-      toast({
-        title: "Ошибка",
-        variant: "destructive",
-        description: e?.message ?? "",
-      });
+      const res = await signIn(login, password);
+      if (res?.error) {
+        toast({
+          title: "Ошибка входа.",
+          variant: "destructive",
+          description:
+            res.error.status == 401
+              ? "Неправильный логин или пароль."
+              : res.error.message,
+        });
+        return;
+      }
     } finally {
       setPending(false);
     }

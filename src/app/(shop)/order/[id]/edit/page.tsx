@@ -1,4 +1,5 @@
 import { EditOrderForm } from "@/components/order/edit-order-form";
+import { getHttpStatusMessage } from "@/lib/utils";
 import { fileStorageService } from "@/service/fileStorage";
 import { orderService } from "@/service/order";
 import { statusService } from "@/service/status";
@@ -20,7 +21,19 @@ export default async function EditOrderPage({ params }: Props) {
     // TODO: отобразить not-found page
     return null;
   }
-  const file = await fileStorageService.getFileByOrderId(orderToEdit.id);
+
+  let file;
+
+  try {
+    file = await fileStorageService.getFileByOrderId(orderToEdit.id);
+  } catch (err: any) {
+    return (
+      <div className="w-full text-center mt-4">
+        <p className="text-lg font-semibold">Ошибка!</p>
+        <p>{getHttpStatusMessage(err?.status)}</p>
+      </div>
+    );
+  }
 
   return (
     <section className="py-6 space-y-6">

@@ -24,15 +24,17 @@ export function AmenitiesCreateForm() {
         });
         return;
       }
-      await createAmenities(values);
+      const res = await createAmenities(values);
+      if (res?.error) {
+        toast({
+          title: "Ошибка при создании услуги.",
+          variant: "destructive",
+          description: res.error.message,
+        });
+        return;
+      }
       toast({
         title: "Услуга создана успешно.",
-      });
-    } catch (err: any) {
-      toast({
-        title: "Ошибка при создании услуги.",
-        variant: "destructive",
-        description: err.message ?? "",
       });
     } finally {
       setPending(false);

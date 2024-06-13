@@ -24,16 +24,18 @@ export function MerchandiseItemMenu({ merchandise }: Props) {
   const onDelete = async () => {
     setPending(true);
     try {
-      await removeMerchandise(merchandise.id);
+      const res = await removeMerchandise(merchandise.id);
+      if (res?.error) {
+        toast({
+          title: "Ошибка при удалении товара.",
+          variant: "destructive",
+          description: res.error.message,
+        });
+        return;
+      }
       orderStorage.deleteMerchandise(merchandise.id);
       toast({
         title: `Товар '${merchandise.title}' удален успешно.`,
-      });
-    } catch (err: any) {
-      toast({
-        title: "Ошибка при удалении товара.",
-        variant: "destructive",
-        description: err.message ?? "",
       });
     } finally {
       setPending(false);

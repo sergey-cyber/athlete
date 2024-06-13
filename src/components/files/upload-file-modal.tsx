@@ -28,15 +28,17 @@ export function UploadFileModal() {
       if (file) {
         formData.append("file", file);
       }
-      await uploadFile(formData);
+      const res = await uploadFile(formData);
+      if (res?.error) {
+        toast({
+          title: "Ошибка при загрузке файла.",
+          description: res.error.message,
+          variant: "destructive",
+        });
+        return;
+      }
       toast({
         title: "Файл загружен успешно.",
-      });
-    } catch (err: any) {
-      toast({
-        title: "Ошибка при загрузке заявки.",
-        description: err.message ?? "",
-        variant: "destructive",
       });
     } finally {
       setPending(false);

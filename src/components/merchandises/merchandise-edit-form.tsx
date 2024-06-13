@@ -28,15 +28,17 @@ export function MerchandiseEditForm({ merchandise }: Props) {
         });
         return;
       }
-      await editMerchandise(values);
+      const res = await editMerchandise(values);
+      if (res?.error) {
+        toast({
+          title: "Ошибка при изменении товара.",
+          variant: "destructive",
+          description: res.error.message,
+        });
+        return;
+      }
       toast({
         title: "Товар изменен успешно.",
-      });
-    } catch (err: any) {
-      toast({
-        title: "Ошибка при изменении товара.",
-        variant: "destructive",
-        description: err.message ?? "",
       });
     } finally {
       setPending(false);
