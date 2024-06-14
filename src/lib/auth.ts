@@ -7,3 +7,8 @@ export const getAuthCockies = () => {
 
   return { login, password };
 };
+
+export enum Roles {
+  ADMIN = "admin",
+  USER = "user",
+}

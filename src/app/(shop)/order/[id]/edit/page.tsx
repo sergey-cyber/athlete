@@ -1,7 +1,7 @@
 import { EditOrderForm } from "@/components/order/edit-order-form";
 import { getHttpStatusMessage } from "@/lib/utils";
 import { fileStorageService } from "@/service/fileStorage";
-import { orderService } from "@/service/order";
+import { searchOrders } from "@/service/order/dal";
 import { statusService } from "@/service/status";
 import { userService } from "@/service/user";
 
@@ -14,7 +14,7 @@ export default async function EditOrderPage({ params }: Props) {
   const clients = await userService.search();
 
   // TODO: вызываем все элементы, так как на бэке отсуттвует GET метод order/{id}
-  const orders = await orderService.search();
+  const orders = await searchOrders();
   const orderToEdit = await orders.find(({ id }) => id == params.id);
 
   if (!orderToEdit) {

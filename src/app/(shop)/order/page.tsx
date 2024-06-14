@@ -4,14 +4,14 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { UserInfo } from "@/components/users/user-info";
 import { toCreateOrder, toEditOrder } from "@/lib/routes";
-import { orderService } from "@/service/order";
+import { searchOrders } from "@/service/order/dal";
 import { UserType } from "@/service/user/types";
 import { Pencil, Plus } from "lucide-react";
 import Link from "next/link";
 import { ReactNode } from "react";
 
 export default async function OrdersPage() {
-  const orders = await orderService.search();
+  const orders = await searchOrders();
 
   return (
     <section className="space-y-6">

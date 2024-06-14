@@ -29,8 +29,14 @@ class OrderService extends Requestable {
     this.checkResponseForErrors(response);
   }
 
-  public async search() {
+  public async getAll() {
     return this.makeRequest<OrderType[]>("/getAllOrders", {
+      cache: "no-store",
+    });
+  }
+
+  public async getForPrincipal() {
+    return this.makeRequest<OrderType[]>("/getUserOrders", {
       cache: "no-store",
     });
   }
