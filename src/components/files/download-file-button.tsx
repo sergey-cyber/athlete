@@ -52,10 +52,10 @@ export function DownloadFileButton({ file }: Props) {
     <Button
       onClick={() => onSubmit()}
       variant="outline"
-      size="mini"
+      size="micro"
       disabled={isDownloading}
     >
-      <Download size={16} />
+      <Download size={12} />
     </Button>
   );
 }

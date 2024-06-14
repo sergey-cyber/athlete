@@ -26,3 +26,12 @@ export async function downloadFile(
     return handleActionError(err);
   }
 }
+
+export async function deleteFile(id: string): Promise<ActionResult<undefined>> {
+  try {
+    await fileStorageService.remove(id);
+  } catch (err) {
+    return handleActionError(err);
+  }
+  revalidatePath(toFiles());
+}

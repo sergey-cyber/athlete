@@ -40,6 +40,20 @@ class FileStorage extends Requestable {
     });
     this.checkResponseForErrors(response);
   }
+
+  public async findAllWithoutOrder() {
+    return this.makeRequest<FileStorageType[]>(`/findAllWithoutOrderId`, {
+      cache: "no-store",
+    });
+  }
+
+  public async remove(id: string) {
+    const response = await fetch(`${this.path}/delete?id=${id}`, {
+      method: "DELETE",
+      headers: getAuthCockies(),
+    });
+    this.checkResponseForErrors(response);
+  }
 }
 
 export const fileStorageService = new FileStorage("/fileStorage");
