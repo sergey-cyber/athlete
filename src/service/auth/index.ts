@@ -2,6 +2,8 @@ import { cookies } from "next/headers";
 import { Requestable } from "../requestable";
 import { RequestExeption } from "../exeption/request-exeption";
 import { getHttpStatusMessage } from "@/lib/utils";
+import { getAuthCockies } from "@/lib/auth";
+import { UserType } from "../user/types";
 
 class AuthService extends Requestable {
   constructor(path: string) {
@@ -23,6 +25,14 @@ class AuthService extends Requestable {
         getHttpStatusMessage(response.status)
       );
     }
+  }
+
+  public async getPrincipal() {
+    const { login, password } = getAuthCockies();
+    return this.makeRequest<UserType>(
+      `/loginAndPassword?login=${login}&password=${password}`,
+      { cache: "no-store" }
+    );
   }
 }
 

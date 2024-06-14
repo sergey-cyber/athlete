@@ -14,6 +14,10 @@ export const toSignUp = () => {
   return "/sign-up";
 };
 
+export const toProfile = () => {
+  return "/profile";
+};
+
 // Merchandises
 
 export const toMerchandises = () => {

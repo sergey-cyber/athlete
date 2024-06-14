@@ -60,3 +60,12 @@ export function handleActionError(err: unknown) {
   }
   return { error: { status: undefined, message: "Что-то пошло не так" } };
 }
+
+export function defineColorForRole(role: string) {
+  switch (role) {
+    case "admin":
+      return "bg-green-600";
+    case "user":
+      return "bg-blue-600";
+  }
+}
