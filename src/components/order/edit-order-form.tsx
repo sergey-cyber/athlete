@@ -11,12 +11,14 @@ import { Save } from "lucide-react";
 import { validateOrderSchema } from "./schemas";
 import { OrderType } from "@/service/order/types";
 import { FileStorageType } from "@/service/fileStorage/types";
+import { Roles } from "@/lib/common-types";
 
 interface Props {
   statuses: StatusType[];
   clients: UserType[];
   currentFile?: FileStorageType;
   initialValue: Partial<OrderType>;
+  access: string;
 }
 
 export function EditOrderForm({
@@ -24,6 +26,7 @@ export function EditOrderForm({
   clients,
   initialValue,
   currentFile,
+  access,
 }: Props) {
   const { toast } = useToast();
   const [pending, setPending] = useState(false);
@@ -71,6 +74,7 @@ export function EditOrderForm({
       clients={clients}
       onChange={(key, value) => setOrder({ ...order, [key]: value })}
       values={order}
+      hiddenParamsSection={access !== Roles.ADMIN}
     >
       <Button onClick={onSubmit} disabled={pending}>
         <Save className="pr-2" />

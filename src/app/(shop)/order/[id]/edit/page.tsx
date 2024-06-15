@@ -1,5 +1,6 @@
 import { EditOrderForm } from "@/components/order/edit-order-form";
 import { getHttpStatusMessage } from "@/lib/utils";
+import { authService } from "@/service/auth";
 import { fileStorageService } from "@/service/fileStorage";
 import { searchOrders } from "@/service/order/dal";
 import { statusService } from "@/service/status";
@@ -16,6 +17,7 @@ export default async function EditOrderPage({ params }: Props) {
   // TODO: вызываем все элементы, так как на бэке отсуттвует GET метод order/{id}
   const orders = await searchOrders();
   const orderToEdit = await orders.find(({ id }) => id == params.id);
+  const principal = await authService.getPrincipal();
 
   if (!orderToEdit) {
     // TODO: отобразить not-found page
@@ -45,6 +47,7 @@ export default async function EditOrderPage({ params }: Props) {
         initialValue={orderToEdit}
         clients={clients}
         statuses={statuses}
+        access={principal.role}
       />
     </section>
   );

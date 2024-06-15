@@ -10,13 +10,15 @@ import { createOrder } from "@/service/order/actions";
 import { useState } from "react";
 import { CreditCard } from "lucide-react";
 import { validateOrderSchema } from "./schemas";
+import { Roles } from "@/lib/common-types";
 
 interface Props {
   statuses: StatusType[];
   clients: UserType[];
+  access: string;
 }
 
-export function CreaeteOrderFromCart({ statuses, clients }: Props) {
+export function CreaeteOrderFromCart({ statuses, clients, access }: Props) {
   const orderStorage = useOrderStorage();
   const { toast } = useToast();
   const [pending, setPending] = useState(false);
@@ -64,6 +66,7 @@ export function CreaeteOrderFromCart({ statuses, clients }: Props) {
       clients={clients}
       onChange={(key, value) => orderStorage.set(key, value)}
       values={order}
+      hiddenParamsSection={access !== Roles.ADMIN}
     >
       <Button onClick={onSubmit} disabled={pending}>
         <CreditCard className="pr-2" />

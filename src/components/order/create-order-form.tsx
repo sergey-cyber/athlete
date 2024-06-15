@@ -10,13 +10,15 @@ import { useState } from "react";
 import { CreditCard } from "lucide-react";
 import { validateOrderSchema } from "./schemas";
 import { OrderType } from "@/service/order/types";
+import { Roles } from "@/lib/common-types";
 
 interface Props {
   statuses: StatusType[];
   clients: UserType[];
+  access: string;
 }
 
-export function CreaeteOrderForm({ statuses, clients }: Props) {
+export function CreaeteOrderForm({ statuses, clients, access }: Props) {
   const { toast } = useToast();
   const [pending, setPending] = useState(false);
   const [file, setFile] = useState<File | undefined>();
@@ -70,6 +72,7 @@ export function CreaeteOrderForm({ statuses, clients }: Props) {
       clients={clients}
       onChange={(key, value) => orderOnChange(key, value)}
       values={order}
+      hiddenParamsSection={access !== Roles.ADMIN}
     >
       <Button onClick={onSubmit} disabled={pending}>
         <CreditCard className="pr-2" />

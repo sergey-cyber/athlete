@@ -1,6 +1,6 @@
-import { Roles } from "@/lib/auth";
 import { authService } from "../auth";
 import { orderService } from ".";
+import { Roles } from "@/lib/common-types";
 
 export async function searchOrders() {
   try {

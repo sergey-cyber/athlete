@@ -41,6 +41,7 @@ interface Props extends PropsWithChildren {
   clients: UserType[];
   onFileChange: (file: File | undefined) => void;
   currentFile?: FileStorageType;
+  hiddenParamsSection: boolean;
 }
 
 export function OrderForm({
@@ -51,6 +52,7 @@ export function OrderForm({
   onChange,
   onFileChange,
   currentFile,
+  hiddenParamsSection,
 }: Props) {
   const { merchandises = [], amenities = [] } = values;
   function getTotalPrice() {
@@ -67,7 +69,7 @@ export function OrderForm({
 
   return (
     <div className="space-y-6">
-      <Card>
+      <Card hidden={hiddenParamsSection}>
         <CardHeader>
           <CardTitle>
             <Title title="Параметры" icon={<Settings />} />
