@@ -1,5 +1,4 @@
 import { EditOrderForm } from "@/components/order/edit-order-form";
-import { getHttpStatusMessage } from "@/lib/utils";
 import { authService } from "@/service/auth";
 import { fileStorageService } from "@/service/fileStorage";
 import { searchOrders } from "@/service/order/dal";
@@ -29,12 +28,7 @@ export default async function EditOrderPage({ params }: Props) {
   try {
     file = await fileStorageService.getFileByOrderId(orderToEdit.id);
   } catch (err: any) {
-    return (
-      <div className="w-full text-center mt-4">
-        <p className="text-lg font-semibold">Ошибка!</p>
-        <p>{getHttpStatusMessage(err?.status)}</p>
-      </div>
-    );
+    console.log("Ошибка при получении файла для заявки: ", err?.message);
   }
 
   return (
@@ -43,7 +37,7 @@ export default async function EditOrderPage({ params }: Props) {
         <h1 className="text-2xl font-bold">Редактирование заявки</h1>
       </div>
       <EditOrderForm
-        currentFile={file.id ? file : undefined}
+        currentFile={file?.id ? file : undefined}
         initialValue={orderToEdit}
         clients={clients}
         statuses={statuses}
