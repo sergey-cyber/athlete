@@ -1,5 +1,6 @@
 import { Empty } from "@/components/empty";
 import { DeleteOrderButton } from "@/components/order/delete-order-button";
+import { DownloadOrderFileButton } from "@/components/order/download-order-file-button";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { UserInfo } from "@/components/users/user-info";
@@ -60,6 +61,7 @@ export default async function OrdersPage() {
                   />
                 </div>
                 <div className="flex items-center gap-x-2">
+                  <DownloadOrderFileButton order={order} />
                   <Button size={"mini"} variant={"outline"} asChild>
                     <Link href={toEditOrder(order.id)}>
                       <Pencil size={16} />

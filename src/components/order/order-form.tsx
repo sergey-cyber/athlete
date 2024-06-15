@@ -31,7 +31,6 @@ import { FileStorageType } from "@/service/fileStorage/types";
 import { UserInfo } from "../users/user-info";
 import { getFullName } from "@/lib/utils";
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
-import { DownloadFileButton } from "../files/download-file-button";
 
 type FormValues = Partial<OrderType>;
 
@@ -163,7 +162,6 @@ export function OrderForm({
               <div className="flex gap-x-2 ">
                 <File />
                 <div>{currentFile.title}</div>
-                <DownloadFileButton file={currentFile} />
               </div>
             ) : null}
             <Input

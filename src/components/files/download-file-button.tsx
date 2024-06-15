@@ -11,9 +11,10 @@ import { getHttpStatusMessage } from "@/lib/utils";
 
 interface Props extends PropsWithChildren {
   file: FileStorageType;
+  size?: "mini" | "micro";
 }
 
-export function DownloadFileButton({ file }: Props) {
+export function DownloadFileButton({ file, size = "micro" }: Props) {
   const { toast } = useToast();
   const [isDownloading, setIsDownloading] = useState(false);
 
@@ -48,14 +49,16 @@ export function DownloadFileButton({ file }: Props) {
     }
   };
 
+  const iconSize = size === "micro" ? 12 : 16;
+
   return (
     <Button
       onClick={() => onSubmit()}
       variant="outline"
-      size="micro"
+      size={size}
       disabled={isDownloading}
     >
-      <Download size={12} />
+      <Download size={iconSize} />
     </Button>
   );
 }
