@@ -32,7 +32,7 @@ export default async function OrdersPage() {
               <div className="flex w-full justify-between">
                 <div>
                   <p className="font-bold text-lg">{order.orderName}</p>
-                  <p className="text-gray-500">{order.description}</p>
+                  <OrderProp label="Описание" value={order.description} />
                   <OrderProp label="Статус" value={order.status?.status} />
                   <OrderProp
                     label="Клиент"

@@ -26,7 +26,6 @@ import { StatusType } from "@/service/status/types";
 import { UserType } from "@/service/user/types";
 import { Textarea } from "../ui/textarea";
 import { AmenitiesList } from "./amenities-list";
-import { RequiredLabel } from "../required-label";
 import { FileStorageType } from "@/service/fileStorage/types";
 import { UserInfo } from "../users/user-info";
 import { getFullName } from "@/lib/utils";
@@ -77,7 +76,7 @@ export function OrderForm({
         </CardHeader>
         <CardContent className="space-y-4">
           <div>
-            <RequiredLabel>Название заявки</RequiredLabel>
+            <Label>Название заявки</Label>
             <Input
               onChange={(e) => onChange("orderName", e.currentTarget.value)}
               value={values.orderName}
@@ -91,7 +90,7 @@ export function OrderForm({
             />
           </div>
           <div>
-            <RequiredLabel>Статус</RequiredLabel>
+            <Label>Статус</Label>
             <Select
               onValueChange={(v) =>
                 onChange(
@@ -126,7 +125,7 @@ export function OrderForm({
             />
           </div>
           <div>
-            <RequiredLabel>Клиент</RequiredLabel>
+            <Label>Клиент</Label>
             <Select
               onValueChange={(v) =>
                 onChange("client", {
