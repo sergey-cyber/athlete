@@ -1,3 +1,4 @@
+import { calcProductPrice } from "@/lib/utils";
 import {
   Card,
   CardContent,
@@ -13,6 +14,7 @@ interface Props extends PropsWithChildren {
   description: string;
   price: number;
   numberInWarehouse?: number;
+  ratio?: number;
 }
 
 export function ProductListItem({
@@ -21,6 +23,7 @@ export function ProductListItem({
   price,
   children,
   numberInWarehouse,
+  ratio,
 }: Props) {
   return (
     <Card className="relative">
@@ -41,7 +44,9 @@ export function ProductListItem({
         ) : null}
         <div className="flex justify-between items-end">
           <CardDescription>Стоимость</CardDescription>
-          <div className="flex text-lg font-semibold">{price} р</div>
+          <div className="flex text-lg font-semibold">
+            {calcProductPrice({ price, ratio })} р
+          </div>
         </div>
       </CardContent>
       <CardFooter className="justify-center">{children}</CardFooter>

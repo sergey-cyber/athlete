@@ -9,6 +9,7 @@ import { Separator } from "../ui/separator";
 import { ReactNode, useEffect, useState } from "react";
 import { MerchandiseType } from "@/service/merchandise/types";
 import { AddProductModal } from "../product/add-product-modal";
+import { calcProductPrice } from "@/lib/utils";
 
 interface Props {
   title: ReactNode;
@@ -32,7 +33,7 @@ export function MerchandiseList({ title, merchandises, onChange }: Props) {
   uniqueMerchandises.sort((a, b) => a.title.localeCompare(b.title));
 
   function getTotalPrice() {
-    return merchandises.reduce((acc, item) => acc + item.price, 0);
+    return merchandises.reduce((acc, item) => acc + calcProductPrice(item), 0);
   }
 
   return (
@@ -92,7 +93,10 @@ export function MerchandiseList({ title, merchandises, onChange }: Props) {
                 </div>
                 <div className="flex justify-center items-center">
                   <Price
-                    price={product.price * getMerchandiseCount(product.id)}
+                    price={
+                      calcProductPrice(product) *
+                      getMerchandiseCount(product.id)
+                    }
                   />
                 </div>
               </div>

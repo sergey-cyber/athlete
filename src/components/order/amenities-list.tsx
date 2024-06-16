@@ -9,6 +9,7 @@ import { Separator } from "../ui/separator";
 import { ReactNode, useEffect, useState } from "react";
 import { AmenitiesType } from "@/service/amenities/types";
 import { AddProductModal } from "../product/add-product-modal";
+import { calcProductPrice } from "@/lib/utils";
 
 interface Props {
   title: ReactNode;
@@ -32,7 +33,7 @@ export function AmenitiesList({ title, amenities, onChange }: Props) {
   uniqueAmenities.sort((a, b) => a.title.localeCompare(b.title));
 
   function getTotalPrice() {
-    return amenities.reduce((acc, item) => acc + item.price, 0);
+    return amenities.reduce((acc, item) => acc + calcProductPrice(item), 0);
   }
 
   return (
@@ -88,7 +89,9 @@ export function AmenitiesList({ title, amenities, onChange }: Props) {
                 </div>
                 <div className="flex justify-center items-center">
                   <Price
-                    price={product.price * getAmenitiesCount(product.id)}
+                    price={
+                      calcProductPrice(product) * getAmenitiesCount(product.id)
+                    }
                   />
                 </div>
               </div>

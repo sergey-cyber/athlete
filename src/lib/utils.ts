@@ -69,3 +69,12 @@ export function defineColorForRole(role: string) {
       return "bg-blue-600";
   }
 }
+
+/**
+ * Вычисляет итоговую стоимость продукта с учетом коэфициента стоимости
+ */
+
+export function calcProductPrice(product: { price?: number; ratio?: number }) {
+  const { price, ratio } = product;
+  return (price ?? 0) * (ratio ?? 0);
+}

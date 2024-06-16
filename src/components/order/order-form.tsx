@@ -28,7 +28,7 @@ import { Textarea } from "../ui/textarea";
 import { AmenitiesList } from "./amenities-list";
 import { FileStorageType } from "@/service/fileStorage/types";
 import { UserInfo } from "../users/user-info";
-import { getFullName } from "@/lib/utils";
+import { calcProductPrice, getFullName } from "@/lib/utils";
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
 
 type FormValues = Partial<OrderType>;
@@ -56,7 +56,7 @@ export function OrderForm({
   const { merchandises = [], amenities = [] } = values;
   function getTotalPrice() {
     return [...merchandises, ...amenities].reduce(
-      (acc, { price }) => acc + price,
+      (acc, product) => acc + calcProductPrice(product),
       0
     );
   }
