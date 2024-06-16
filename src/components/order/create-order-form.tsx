@@ -15,10 +15,10 @@ import { Roles } from "@/lib/common-types";
 interface Props {
   statuses: StatusType[];
   clients: UserType[];
-  access: string;
+  client: UserType;
 }
 
-export function CreaeteOrderForm({ statuses, clients, access }: Props) {
+export function CreaeteOrderForm({ statuses, clients, client }: Props) {
   const { toast } = useToast();
   const [pending, setPending] = useState(false);
   const [file, setFile] = useState<File | undefined>();
@@ -47,7 +47,13 @@ export function CreaeteOrderForm({ statuses, clients, access }: Props) {
       if (file) {
         formData.append("file", file);
       }
-      formData.append("orderDTO", JSON.stringify(order));
+      formData.append(
+        "orderDTO",
+        JSON.stringify({
+          ...order,
+          client: { id: client.id, userDetails: client },
+        })
+      );
       const res = await createOrder(formData);
       if (res?.error) {
         toast({
@@ -72,7 +78,7 @@ export function CreaeteOrderForm({ statuses, clients, access }: Props) {
       clients={clients}
       onChange={(key, value) => orderOnChange(key, value)}
       values={order}
-      hiddenParamsSection={access !== Roles.ADMIN}
+      hiddenParamsSection={client.role !== Roles.ADMIN}
     >
       <Button onClick={onSubmit} disabled={pending}>
         <CreditCard className="pr-2" />

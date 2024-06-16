@@ -14,8 +14,8 @@ export default async function CreateOrderPage() {
         <h1 className="text-2xl font-bold">Создание заявки</h1>
       </div>
       <CreaeteOrderForm
-        access={principal.role}
         clients={clients}
+        client={principal}
         statuses={statuses}
       />
     </section>

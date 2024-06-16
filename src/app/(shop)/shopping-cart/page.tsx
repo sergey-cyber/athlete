@@ -14,7 +14,7 @@ export default async function ShoppingCartPage() {
         <h1 className="text-2xl font-bold">Оформление заявки</h1>
       </div>
       <CreaeteOrderFromCart
-        access={principal.role}
+        client={principal}
         clients={clients}
         statuses={statuses}
       />
