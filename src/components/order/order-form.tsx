@@ -125,23 +125,23 @@ export function OrderForm({
             />
           </div>
           <div>
-            <Label>Клиент</Label>
+            <Label>Ответственный</Label>
             <Select
               onValueChange={(v) =>
-                onChange("client", {
+                onChange("users", {
                   id: Number(v),
                   userDetails: selectableClients.find(
                     ({ id }) => id === Number(v)
                   )!,
                 })
               }
-              value={values.client?.id.toString()}
+              value={values.users?.id.toString()}
             >
               <SelectTrigger>
                 <SelectValue>
-                  {values.client
+                  {values.users
                     ? getFullName(
-                        values.client.userDetails as UserType | undefined
+                        values.users.userDetails as UserType | undefined
                       )
                     : ""}
                 </SelectValue>

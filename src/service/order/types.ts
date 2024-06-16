@@ -22,7 +22,7 @@ export type OrderType = {
 
   client?: { id: number; role?: string; userDetails?: UserDetails };
 
-  users?: UserType;
+  users?: { id: number; role?: string; userDetails?: UserDetails };
 
   totalNumberOfMerchandise?: number;
 
