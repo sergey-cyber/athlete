@@ -34,6 +34,7 @@ export function DeleteFileButton({ file }: Props) {
       });
     } finally {
       setPending(false);
+      setOpenConfirm(false);
     }
   };
 
