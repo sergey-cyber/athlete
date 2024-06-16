@@ -74,7 +74,7 @@ export function EditOrderForm({
       clients={clients}
       onChange={(key, value) => setOrder({ ...order, [key]: value })}
       values={order}
-      hiddenParamsSection={access !== Roles.ADMIN}
+      hiddenAdminFields={access !== Roles.ADMIN}
     >
       <Button onClick={onSubmit} disabled={pending}>
         <Save className="pr-2" />

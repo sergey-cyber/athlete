@@ -40,7 +40,7 @@ interface Props extends PropsWithChildren {
   clients: UserType[];
   onFileChange: (file: File | undefined) => void;
   currentFile?: FileStorageType;
-  hiddenParamsSection: boolean;
+  hiddenAdminFields: boolean;
 }
 
 export function OrderForm({
@@ -51,7 +51,7 @@ export function OrderForm({
   onChange,
   onFileChange,
   currentFile,
-  hiddenParamsSection,
+  hiddenAdminFields,
 }: Props) {
   const { merchandises = [], amenities = [] } = values;
   function getTotalPrice() {
@@ -68,95 +68,111 @@ export function OrderForm({
 
   return (
     <div className="space-y-6">
-      <Card hidden={hiddenParamsSection}>
+      <Card>
         <CardHeader>
           <CardTitle>
             <Title title="Параметры" icon={<Settings />} />
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div>
-            <Label>Название заявки</Label>
-            <Input
-              onChange={(e) => onChange("orderName", e.currentTarget.value)}
-              value={values.orderName}
-            />
-          </div>
-          <div>
-            <Label>Описание</Label>
-            <Textarea
-              onChange={(e) => onChange("description", e.currentTarget.value)}
-              value={values.description}
-            />
-          </div>
-          <div>
-            <Label>Статус</Label>
-            <Select
-              onValueChange={(v) =>
-                onChange(
-                  "status",
-                  selectableStatuses.find(({ id }) => id === Number(v))!
-                )
-              }
-              value={values.status?.id.toString()}
-            >
-              <SelectTrigger>
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  {selectableStatuses.map((status) => (
-                    <SelectItem key={status.id} value={status.id.toString()}>
-                      {status.status}
-                    </SelectItem>
-                  ))}
-                </SelectGroup>
-              </SelectContent>
-            </Select>
-          </div>
-          <div>
-            <Label>Приоритет</Label>
-            <Input
-              onChange={(e) =>
-                onChange("priority", Number(e.currentTarget.value))
-              }
-              type="number"
-              value={values.priority || ""}
-            />
-          </div>
-          <div>
-            <Label>Ответственный</Label>
-            <Select
-              onValueChange={(v) =>
-                onChange("users", {
-                  id: Number(v),
-                  userDetails: selectableClients.find(
-                    ({ id }) => id === Number(v)
-                  )!,
-                })
-              }
-              value={values.users?.id.toString()}
-            >
-              <SelectTrigger>
-                <SelectValue>
-                  {values.users
-                    ? getFullName(
-                        values.users.userDetails as UserType | undefined
-                      )
-                    : ""}
-                </SelectValue>
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  {selectableClients.map((user) => (
-                    <SelectItem key={user.id} value={user.id.toString()}>
-                      <UserInfo user={user} />
-                    </SelectItem>
-                  ))}
-                </SelectGroup>
-              </SelectContent>
-            </Select>
-          </div>
+          {!hiddenAdminFields ? (
+            <>
+              <div>
+                <Label>Название заявки</Label>
+                <Input
+                  onChange={(e) => onChange("orderName", e.currentTarget.value)}
+                  value={values.orderName}
+                />
+              </div>
+              <div>
+                <Label>Описание</Label>
+                <Textarea
+                  onChange={(e) =>
+                    onChange("description", e.currentTarget.value)
+                  }
+                  value={values.description}
+                />
+              </div>
+              <div>
+                <Label>Статус</Label>
+                <Select
+                  onValueChange={(v) =>
+                    onChange(
+                      "status",
+                      selectableStatuses.find(({ id }) => id === Number(v))!
+                    )
+                  }
+                  value={values.status?.id.toString()}
+                >
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      {selectableStatuses.map((status) => (
+                        <SelectItem
+                          key={status.id}
+                          value={status.id.toString()}
+                        >
+                          {status.status}
+                        </SelectItem>
+                      ))}
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div>
+                <Label>Приоритет</Label>
+                <Input
+                  onChange={(e) =>
+                    onChange("priority", Number(e.currentTarget.value))
+                  }
+                  type="number"
+                  value={values.priority || ""}
+                />
+              </div>
+              <div>
+                <Label>Ответственный</Label>
+                <Select
+                  onValueChange={(v) =>
+                    onChange("users", {
+                      id: Number(v),
+                      userDetails: selectableClients.find(
+                        ({ id }) => id === Number(v)
+                      )!,
+                    })
+                  }
+                  value={values.users?.id.toString()}
+                >
+                  <SelectTrigger>
+                    <SelectValue>
+                      {values.users
+                        ? getFullName(
+                            values.users.userDetails as UserType | undefined
+                          )
+                        : ""}
+                    </SelectValue>
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      {selectableClients.map((user) => (
+                        <SelectItem key={user.id} value={user.id.toString()}>
+                          <UserInfo user={user} />
+                        </SelectItem>
+                      ))}
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div>
+                <Label>Комментарий</Label>
+                <Textarea
+                  onChange={(e) => onChange("comments", e.currentTarget.value)}
+                  value={values.comments}
+                />
+              </div>
+            </>
+          ) : null}
           <div className="space-y-2">
             <Label htmlFor="file">Файл</Label>
             {currentFile && !isFileChanged ? (
@@ -172,13 +188,6 @@ export function OrderForm({
               }}
               id="file"
               type="file"
-            />
-          </div>
-          <div>
-            <Label>Комментарий</Label>
-            <Textarea
-              onChange={(e) => onChange("comments", e.currentTarget.value)}
-              value={values.comments}
             />
           </div>
         </CardContent>

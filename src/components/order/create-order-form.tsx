@@ -78,7 +78,7 @@ export function CreaeteOrderForm({ statuses, clients, client }: Props) {
       clients={clients}
       onChange={(key, value) => orderOnChange(key, value)}
       values={order}
-      hiddenParamsSection={client.role !== Roles.ADMIN}
+      hiddenAdminFields={client.role !== Roles.ADMIN}
     >
       <Button onClick={onSubmit} disabled={pending}>
         <CreditCard className="pr-2" />

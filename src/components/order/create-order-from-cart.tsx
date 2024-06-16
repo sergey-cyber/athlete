@@ -72,7 +72,7 @@ export function CreaeteOrderFromCart({ statuses, clients, client }: Props) {
       clients={clients}
       onChange={(key, value) => orderStorage.set(key, value)}
       values={order}
-      hiddenParamsSection={client.role !== Roles.ADMIN}
+      hiddenAdminFields={client.role !== Roles.ADMIN}
     >
       <Button onClick={onSubmit} disabled={pending}>
         <CreditCard className="pr-2" />
