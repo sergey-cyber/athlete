@@ -1,8 +1,8 @@
 import { OrderType } from "@/service/order/types";
 import { Card, CardContent, CardDescription } from "../ui/card";
-import { Separator } from "../ui/separator";
 import { AddProductToCartButton } from "./add-product-to-cart-button";
 import { Product } from "./types";
+import { calcProductPrice } from "@/lib/utils";
 
 interface Props {
   product: Product;
@@ -27,7 +27,9 @@ export function ProductDetails({ product, productType }: Props) {
           ) : null}
           <div className="flex justify-between">
             <span>Цена:</span>
-            <span className="text-lg font-semibold ">{product.price} Р</span>
+            <span className="text-lg font-semibold ">
+              {calcProductPrice(product)} Р
+            </span>
           </div>
           <AddProductToCartButton
             className="w-full"
