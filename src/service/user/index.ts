@@ -11,6 +11,10 @@ class UserService extends Requestable {
     return this.makeRequest<UserType[]>("/all", { cache: "no-store" });
   }
 
+  public async searchAdmins() {
+    return this.makeRequest<UserType[]>("/allAdmins", { cache: "no-store" });
+  }
+
   public async create(user: Partial<UserType>) {
     return this.makeRequest<UserType>("/save", {
       method: "POST",

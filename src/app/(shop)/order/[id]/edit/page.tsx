@@ -11,7 +11,7 @@ interface Props {
 
 export default async function EditOrderPage({ params }: Props) {
   const statuses = await statusService.search();
-  const clients = await userService.search();
+  const clients = await userService.searchAdmins();
 
   // TODO: вызываем все элементы, так как на бэке отсуттвует GET метод order/{id}
   const orders = await searchOrders();
