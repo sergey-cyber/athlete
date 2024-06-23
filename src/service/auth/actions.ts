@@ -6,6 +6,8 @@ import { toMerchandises, toSignIn } from "@/lib/routes";
 import { cookies } from "next/headers";
 import { ActionResult } from "@/lib/common-types";
 import { handleActionError } from "@/lib/utils";
+import { UserType } from "../user/types";
+import { userService } from "../user";
 
 export async function signIn(
   login: string,
@@ -24,4 +26,16 @@ export async function signOut() {
   cookieStore.delete("login");
   cookieStore.delete("password");
   redirect(toSignIn());
+}
+
+export async function signUp(
+  payload: Partial<UserType>
+): Promise<ActionResult<undefined>> {
+  try {
+    await userService.create(payload);
+  } catch (e) {
+    return handleActionError(e);
+  }
+  const redirectPath = toSignIn();
+  redirect(redirectPath);
 }

@@ -17,6 +17,7 @@ import {
 } from "../ui/form";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
+import { signUp } from "@/service/auth/actions";
 
 export function SignUpForm() {
   const { toast } = useToast();
@@ -25,7 +26,7 @@ export function SignUpForm() {
   async function onSubmit(values: z.infer<typeof signUpSchema>) {
     setPending(true);
     try {
-      const res = await createUser({ ...values, role: "user" });
+      const res = await signUp({ ...values, role: "user" });
       if (res?.error) {
         toast({
           title: "Ошибка при регистрации пользователя.",
