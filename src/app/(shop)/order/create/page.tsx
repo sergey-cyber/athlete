@@ -5,7 +5,7 @@ import { userService } from "@/service/user";
 
 export default async function CreateOrderPage() {
   const statuses = await statusService.search();
-  const clients = await userService.search();
+  const clients = await userService.searchAdmins();
   const principal = await authService.getPrincipal();
 
   return (
